@@ -1,23 +1,31 @@
 <?php
 include "../config/db.php";
 
+if (isset($_SESSION['user_id'])) {
+    header("Location: ../index.php");
+    exit();
+}
 
 if (isset($_POST['login'])) {
     $login_input = $_POST['login_input'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM User WHERE email='$login_input' OR phone_number='$login_input'";
+    // Simple SQL query without prepared statements (vulnerable to SQL injection)
+    $sql = "SELECT * FROM Users WHERE Email='$login_input'";
     $result = $conn->query($sql);
 
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
 
-        if ($password === $row['password']) {
-            // Store user information in session variables
-            $_SESSION['user_id'] = $row['id'];
-            $_SESSION['full_name'] = $row['first_name'] . ' ' . $row['last_name'];
+        // Simple password comparison (without hashing)
+        if ($password === $row['Password']) {
+            // Password is correct
+            session_start();
+            $_SESSION['user_id'] = $row['UserID'];
+            $_SESSION['email'] = $row['Email'];
+            $_SESSION['full_name'] = $row['Name'];
 
-            echo "Login successful! Welcome, " . $row['username'];
+            echo "Login successful! Welcome, " . $row['Name'];
 
             header("Location: ../index.php");
             exit();
@@ -27,9 +35,10 @@ if (isset($_POST['login'])) {
     } else {
         echo "User not found";
     }
-}
 
-$conn->close();
+    $result->close();
+    $conn->close();
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +49,7 @@ $conn->close();
 <body>
     <h2>Login</h2>
     <form method="post" action="">
-        <label>Login (Email/Phone): <input type="text" name="login_input" required></label><br>
+        <label>Login (Email): <input type="text" name="login_input" required></label><br>
         <label>Password: <input type="password" name="password" required></label><br>
         <input type="submit" name="login" value="Login">
     </form>

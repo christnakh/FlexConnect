@@ -2,7 +2,7 @@
 $host = 'localhost';
 $user = 'root';
 $pass = 'root';
-$db = 'NEOM';
+$db = 'FlexConnect';
 
 $conn = new mysqli($host, $user, $pass, $db);
 

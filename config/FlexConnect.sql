@@ -1,8 +1,14 @@
+drop database FlexConnect;
+CREATE database FlexConnect;
+USE FlexConnect;
+
 -- Users Table
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(255),
     Email VARCHAR(255) UNIQUE,
+    birth_date date,
+    phone_number varchar(24),
     Password VARCHAR(255),
     Location VARCHAR(255),
     Industry VARCHAR(255),
