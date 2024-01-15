@@ -39,7 +39,7 @@ if (isset($_POST['signup'])) {
     $profilePictureURL = '';
 
     if ($_FILES['profilePicture']['error'] == UPLOAD_ERR_OK) {
-        $uploadDir = 'uploads/users/';
+        $uploadDir = '../uploads/users/';
         $profilePictureURL = $uploadDir . generateRandomURL(5) . '_' . $_FILES['profilePicture']['name'];
 
         if (move_uploaded_file($_FILES['profilePicture']['tmp_name'], $profilePictureURL)) {
