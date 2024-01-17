@@ -1,72 +1,89 @@
 <?php
+session_start();
 include "../config/db.php";
 
-// Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
-// Include your database connection file
-
-// Retrieve user information from the database
 $userID = $_SESSION['user_id'];
-$sql = "SELECT * FROM Users WHERE UserID = $userID";
-$result = $conn->query($sql);
 
-if ($result->num_rows == 1) {
-    $user = $result->fetch_assoc();
+// Check if the connection is successful
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Select user information
+$userSQL = "SELECT * FROM Users WHERE UserID = $userID";
+$userResult = $conn->query($userSQL);
+
+if ($userResult->num_rows == 1) {
+    $user = $userResult->fetch_assoc();
 } else {
     echo "Error fetching user information";
     exit();
 }
 
-// Process form submission to update profile
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-    $newName = $_POST['name'];
-    $newEmail = $_POST['email'];
-    // Add more fields as needed
+// Select skills information
+echo "<h1>Skills</h1>";
+$skillsSQL = "SELECT * FROM Skills WHERE UserID = $userID";
+$skillsResult = $conn->query($skillsSQL);
 
-    // Perform the update in the database
-    $updateSql = "UPDATE Users SET Name='$newName', Email='$newEmail' WHERE UserID=$userID";
-
-    if ($conn->query($updateSql) === TRUE) {
-        echo "Profile updated successfully!";
-        // You may redirect the user back to the profile page or perform any other action
-    } else {
-        echo "Error updating profile: " . $conn->error;
-    }
+if ($skillsResult->num_rows > 0) {
+    $skills = $skillsResult->fetch_assoc();
+    // Fetch other data as needed
+} else {
+    $skills = array(); // Empty array if no skills found
 }
 
-$conn->close();
+// Select posts information
+echo "<h1>Posts</h1>";
+$postsSQL = "SELECT * FROM Posts WHERE UserID = $userID";
+$postsResult = $conn->query($postsSQL);
+
+if ($postsResult->num_rows > 0) {
+    $posts = $postsResult->fetch_assoc();
+    // Fetch other data as needed
+} else {
+    $posts = array(); // Empty array if no posts found
+}
+
+
+// Select experience information
+echo "<h1>Experience</h1>";
+$experienceSQL = "SELECT * FROM Experience WHERE UserID = $userID";
+$experienceResult = $conn->query($experienceSQL);
+
+if ($experienceResult->num_rows > 0) {
+    $experience = $experienceResult->fetch_assoc();
+    // Fetch other data as needed
+} else {
+    $experience = array(); // Empty array if no experience found
+}
+
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Profile</title>
+    <title>User Profile</title>
 </head>
 <body>
-    <h2>Edit Profile</h2>
-    <p>Welcome, <?php echo $_SESSION['full_name']; ?>!</p>
-
     <!-- Display user information -->
-    <p><strong>Name:</strong> <?php echo $user['Name']; ?></p>
-    <p><strong>Email:</strong> <?php echo $user['Email']; ?></p>
-    <!-- Add more fields as needed -->
+    <h1>User Profile</h1>
+    <p>Name: <?php echo $user['Name']; ?></p>
+    <p>Email: <?php echo $user['Email']; ?></p>
+    <!-- Display other information from $skills, $posts, $experience, $endorsements arrays as needed -->
 
-    <!-- Form to edit profile information -->
-    <form action="" method="post">
-        <label>New Name: <input type="text" name="name" value="<?php echo $user['Name']; ?>" required></label><br>
-        <label>New Email: <input type="email" name="email" value="<?php echo $user['Email']; ?>" required></label><br>
-        <!-- Add more fields as needed -->
+    <p><a href="edit_experience.php">Edit Experience</a></p>
+    <p><a href="edit_education.php">Edit Education</a></p>
+    <p><a href="edit_skills.php">Edit Skills</a></p>
 
-        <input type="submit" name="submit" value="Save Changes">
-    </form>
-
-    <!-- Logout button -->
     <form action="logout.php" method="post">
         <input type="submit" value="Logout">
     </form>
+    <a href="/"></a>
 </body>
 </html>

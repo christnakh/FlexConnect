@@ -1,36 +1,82 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
-body{
-    font-family: 'Poppins', sans-serif;
-    background: #ececec;
+
+body {
+    
+    background: linear-gradient(to top, #ffffff, #4d84e2);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    color: white;
+  }
+.main{
+    text-align: center;
+    margin-bottom:100px;
+    font-family: 'Rubik', sans-serif;
+    border-left:1px solid rgb(55, 54, 54);
+    padding: 20px;
+    margin-left:750px ;
+    background-color: #ffffff;
+    height:1000px;
+    margin-top:140px ;
+    
 }
-/*------------ Login container ------------*/
-.box-area{
-    width: 930px;
+label{
+    text-align: left;
+    padding:10px;
+    color:black;
 }
-/*------------ Right box ------------*/
-.right-box{
-    padding: 40px 30px 40px 40px;
+.h22 a{
+    text-decoration: none;
+    color: black;
+    font-size:12px;
+    text-align: right;
 }
-/*------------ Custom Placeholder ------------*/
-::placeholder{
-    font-size: 16px;
+.h22{
+    margin-left: 350px;
+    margin-bottom:20px;
 }
-.rounded-4{
-    border-radius: 20px;
+input{
+    text-decoration: none;
+    width: 420px;
+    border-radius: 10px;
+    height:45px;
+    border:1px solid rgb(55, 54, 54)
 }
-.rounded-5{
-    border-radius: 30px;
+input::after{
+    border:1px solid #4d94e2
 }
-/*------------ For small screens------------*/
-@media only screen and (max-width: 768px){
-     .box-area{
-        margin: 0 10px;
-     }
-     .left-box{
-        height: 100px;
-        overflow: hidden;
-     }
-     .right-box{
-        padding: 20px;
-     }
+.logbutt{
+    text-decoration: none;
+    width: 420px;
+    border-radius: 10px;
+    height:45px;
+    border:1px solid whitesmoke;
+    color:white;
+    background-color: #4d84e2;
+}
+
+.all{
+    display:flex;
+    flex-direction:column;
+    text-align: left;
+}
+img{
+    margin-bottom: -600px;
+    margin-left:200px;
+}
+.all{
+    border:1px solid white;
+    width: 1500px;
+    height:800px;
+    background-color: white;
+    border-radius: 10px;
+}
+.signUp{
+    color:black;
+    padding: 30px;
+}
+.signUp button{
+    text-decoration: unset;
 }

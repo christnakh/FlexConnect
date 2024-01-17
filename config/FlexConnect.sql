@@ -56,7 +56,7 @@ CREATE TABLE Connections (
     UserID1 INT,
     UserID2 INT,
     ConnectionStatus VARCHAR(255),
-    ConnectedSince DATE,
+    ConnectedSince DATE, 
     FOREIGN KEY (UserID1) REFERENCES Users(UserID),
     FOREIGN KEY (UserID2) REFERENCES Users(UserID)
 );
@@ -91,6 +91,18 @@ CREATE TABLE Posts (
     Content TEXT,
     PostDate DATETIME,
     ImageURL VARCHAR(255),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+-- PostInteractions Table
+CREATE TABLE PostInteractions (
+    InteractionID INT AUTO_INCREMENT PRIMARY KEY,
+    PostID INT,
+    UserID INT,
+    ReactionStatus BOOLEAN,
+    Comment TEXT,
+    InteractionDate DATETIME,
+    FOREIGN KEY (PostID) REFERENCES Posts(PostID),
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 

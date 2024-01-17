@@ -48,16 +48,31 @@ if (isset($_POST['login'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/login.css">
     <title>Login</title>
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="post" action="">
-        <label>Login (Email): <input type="text" name="login_input" required></label><br>
-        <label>Password: <input type="password" name="password" required></label><br>
-        <input type="submit" name="login" value="Login">
-    </form>
-    <button onclick="window.location.href='signup.php'">Signup</button>
+        <div class="all">
+            <div class="second">
+                <img src="../img/logo.png" width="450px" height="450px">
+            </div>
+
+    <div class="main">
+        
+        <h2 style="color:black;">Login to your account</h2>
+        <form method="post" action="">
+            <label>Email<br><input type="text" name="login_input" required></label><br>
+            <label>Password<br><input type="password" name="password" required></label><br>
+            <h2 class="h22"><a href="#">Forgot password?</a></h2>
+            <input class="logbutt" type="submit" name="login" value="Login">
+        </form>
+
+   <p class="signUp">New To FlexConnect?<button onclick="window.location.href='signup.php'">Signup</button></p> 
+   
+</div>
+        </div>
 </body>
 </html>

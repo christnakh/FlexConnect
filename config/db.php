@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 $host = 'localhost';
 $user = 'root';
 $pass = 'root';
@@ -10,7 +13,6 @@ if ($conn->connect_error) {
     die('Connection failed: ' . $conn->connect_error);
 }
 
-session_start(); 
 
 ?>
 
