@@ -156,3 +156,15 @@ CREATE TABLE Recommendations (
     FOREIGN KEY (RecommendedByUserID) REFERENCES Users(UserID),
     FOREIGN KEY (RecommendedUserID) REFERENCES Users(UserID)
 );
+
+
+-- Comments Table
+CREATE TABLE Comments (
+    CommentID INT AUTO_INCREMENT PRIMARY KEY,
+    PostID INT,
+    UserID INT,
+    CommentText TEXT,
+    CommentDate DATETIME,
+    FOREIGN KEY (PostID) REFERENCES Posts(PostID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);

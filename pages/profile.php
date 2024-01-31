@@ -84,6 +84,6 @@ if ($experienceResult->num_rows > 0) {
     <form action="logout.php" method="post">
         <input type="submit" value="Logout">
     </form>
-    <a href="/"></a>
+    <a href="/">Back home</a>
 </body>
 </html>

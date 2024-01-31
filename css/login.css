@@ -19,12 +19,12 @@ body {
     margin-left:750px ;
     background-color: #ffffff;
     height:1000px;
-    margin-top:140px ;
+    margin-top:90px ;
     
 }
 label{
     text-align: left;
-    padding:10px;
+    padding:20px;
     color:black;
 }
 .h22 a{
@@ -34,7 +34,7 @@ label{
     text-align: right;
 }
 .h22{
-    margin-left: 350px;
+    margin-left: 320px;
     margin-bottom:20px;
 }
 input{
@@ -42,7 +42,8 @@ input{
     width: 420px;
     border-radius: 10px;
     height:45px;
-    border:1px solid rgb(55, 54, 54)
+    border:1px solid rgb(55, 54, 54);
+    padding-left: 5px;
 }
 input::after{
     border:1px solid #4d94e2
@@ -63,8 +64,8 @@ input::after{
     text-align: left;
 }
 img{
-    margin-bottom: -600px;
-    margin-left:200px;
+    margin-bottom: -700px;
+    margin-left:150px;
 }
 .all{
     border:1px solid white;
@@ -77,6 +78,11 @@ img{
     color:black;
     padding: 30px;
 }
-.signUp button{
-    text-decoration: unset;
+.signUp .bt{
+    all:unset;
+    text-decoration: underline;
+    color: #4d84e2;
+}
+.fot{
+    color: black;
 }
