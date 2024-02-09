@@ -22,6 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $educationSql = "SELECT * FROM Education WHERE UserID = $userID";
 $educationResult = $conn->query($educationSql);
 
+$schoolNameSql = "SELECT * FROM SchoolName";
+$schoolNameResult = $conn->query($schoolNameSql);
+
+$degreeSql = "SELECT * FROM Degree";
+$degreeResult = $conn->query($degreeSql);
+
+$fieldStudySql = "SELECT * FROM FieldStudy";
+$fieldStudyResult = $conn->query($fieldStudySql);
+
 $conn->close();
 ?>
 
@@ -107,19 +116,51 @@ $conn->close();
             <form action="" method="post" class="needs-validation" novalidate>
                 <div class="form-group">
                     <label for="school_name">School Name:</label>
-                    <input type="text" name="school_name" class="form-control" required>
-                    <div class="invalid-feedback">Please enter the school name.</div>
+                    <select name="school_name" class="form-control" required>
+                        <?php
+                            if ($schoolNameResult -> num_rows > 0){
+                                while ($school = $schoolNameResult->fetch_assoc()){
+                                    ?>
+                                        <option value="<?php echo $school['school_Name']; ?>"><?php echo $school['school_Name']; ?></option>
+                                    <?php
+                                }
+                            }
+                        ?>
+                    </select>
+                    <div class="invalid-feedback">Please select a school name.</div>
                 </div>
                 <div class="form-group">
                     <label for="degree">Degree:</label>
-                    <input type="text" name="degree" class="form-control" required>
-                    <div class="invalid-feedback">Please enter the degree.</div>
+                    <select name="degree" class="form-control" required>
+                        <?php
+                            if ($degreeResult -> num_rows > 0){
+                                while ($degree = $degreeResult->fetch_assoc()){
+                                    ?>
+                                        <option value="<?php echo $degree['degree_Type']; ?>"><?php echo $degree['degree_Type']; ?></option>
+                                    <?php
+                                }
+                            }
+                        ?>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label for="field_of_study">Field of Study:</label>
-                    <input type="text" name="field_of_study" class="form-control" required>
-                    <div class="invalid-feedback">Please enter the field of study.</div>
+                    
+                    <div class="form-group">
+                        <label for="field_of_study">Field of Study:</label>
+                        <select name="field_of_study" class="form-control" required>
+                            <?php
+                                if ($fieldStudyResult -> num_rows > 0){
+                                    while ($fieldStudy = $fieldStudyResult->fetch_assoc()){
+                                        ?>
+                                            <option value="<?php echo $fieldStudy['FieldStudyType']; ?>"><?php echo $fieldStudy['FieldStudyType']; ?></option>
+                                        <?php
+                                    }
+                                }
+                            ?>
+                        </select>
+                    </div>
                 </div>
+
+
                 <div class="form-group">
                     <label for="start_year">Start Year:</label>
                     <input type="number" name="start_year" class="form-control" required>

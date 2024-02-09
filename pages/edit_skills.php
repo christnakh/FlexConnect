@@ -22,6 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $skillsSql = "SELECT * FROM Skills WHERE UserID = $userID";
 $skillsResult = $conn->query($skillsSql);
 
+$selectSkills = "SELECT * FROM developerSkills";
+$resultSkills = $conn->query($selectSkills);
+
+// Update skills
+//$updateSelectSkills = "SELECT * FROM developerSkills";
+$updateResultSkills = $conn->query($selectSkills);
+
 $conn->close();
 ?>
 
@@ -67,7 +74,24 @@ $conn->close();
                             <div class="modal-body">
                                 <form action="" method="post">
                                     <input type="hidden" name="skill_id" value="<?php echo $skill['SkillID']; ?>">
-                                    <label>Skill Name: <input type="text" name="skill_name" value="<?php echo $skill['SkillName']; ?>"></label><br>
+                                    
+                                    <!-- Skill Name Dropdown -->
+                                    <div class="form-group">
+                                        <label for="skill_name">Skill Name:</label>
+                                        <select name="skill_name" class="form-control" required>
+                                            <?php
+                                                $selectedSkillName = $skill['SkillName'];
+                                                if ($updateResultSkills->num_rows > 0) {
+                                                    while ($skillData = $updateResultSkills->fetch_assoc()) {
+                                                        $selected = ($skillData['skills_type'] == $selectedSkillName) ? 'selected' : '';
+                                                        echo "<option value=\"{$skillData['skills_type']}\" {$selected}>{$skillData['skills_type']}</option>";
+                                                    }
+                                                }
+                                            ?>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a skill name.</div>
+                                    </div>
+
                                     <button type="submit" name="update_skill" class="btn btn-primary">Update</button>
                                 </form>
                             </div>
@@ -103,9 +127,20 @@ $conn->close();
             <form action="" method="post" class="needs-validation" novalidate>
                 <div class="form-group">
                     <label for="skill_name">Skill Name:</label>
-                    <input type="text" name="skill_name" class="form-control" required>
-                    <div class="invalid-feedback">Please enter the skill name.</div>
+                    <select name="skill_name" class="form-control" required>
+                        <?php
+                            if ($resultSkills->num_rows > 0) {
+                                while ($skill = $resultSkills->fetch_assoc()) {
+                                    echo '<option value="' . $skill['skills_type'] . '">' . $skill['skills_type'] . '</option>';
+                                }
+                            } else {
+                                echo 'No skills found in the database.';
+                            }
+                            
+                        ?>
+                    </select>
                 </div>
+
                 <button type="submit" name="add_skill" class="btn btn-success">Add Skill</button>
             </form>
         </div>

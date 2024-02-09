@@ -94,24 +94,24 @@ if (!$result) {
     <section>
         <?php foreach ($result as $postUser): ?>
             <div class="media">
-                <img src="../<?php echo $postUser['ProfilePictureURL']; ?>" alt='Profile' class="mr-3 rounded-circle">
+                <img src="<?php echo $postUser['ProfilePictureURL']; ?>" alt='Profile' class="mr-3 rounded-circle">
                 <div class="media-body">
                     <h5><?php echo $postUser['Name']; ?></h5>
                     <p><?php echo $postUser['Content']; ?></p>
-                    <img src="../<?php echo $postUser['ImageURL']; ?>" alt='Image post' class="img-fluid">
+                    <img src="<?php echo'/uploads/posts/'. $postUser['ImageURL']; ?>" alt='Image post' class="img-fluid">
                   <div class="reaction-section mt-2">
     <button class="reaction btn btn-outline-primary <?php echo ($postUser['user_reaction'] == 'like') ? 'active' : ''; ?>" data-post-id="<?php echo $postUser['PostID']; ?>" data-reaction="like">
-        <i class="fas fa-thumbs-up"></i> Like
+        <i class="fas fa-thumbs-up"></i>
     </button>
     <span class="reaction-count like-count"><?php echo $postUser['likes']; ?></span>
 
     <button class="reaction btn btn-outline-success <?php echo ($postUser['user_reaction'] == 'love') ? 'active' : ''; ?>" data-post-id="<?php echo $postUser['PostID']; ?>" data-reaction="love">
-        <i class="fas fa-heart"></i> Love
+        <i class="fas fa-heart"></i>
     </button>
     <span class="reaction-count love-count"><?php echo $postUser['loves']; ?></span>
 
     <button class="reaction btn btn-outline-danger <?php echo ($postUser['user_reaction'] == 'dislike') ? 'active' : ''; ?>" data-post-id="<?php echo $postUser['PostID']; ?>" data-reaction="dislike">
-        <i class="fas fa-thumbs-down"></i> Dislike
+        <i class="fas fa-thumbs-down"></i> 
     </button>
     <span class="reaction-count dislike-count"><?php echo $postUser['dislikes']; ?></span>
 </div>
@@ -268,7 +268,7 @@ $('#updateCommentForm').submit(function(e) {
         url: './pages/update_comment.php', // URL to your PHP script for updating comments
         type: 'post',
         data: { comment_id: commentID, comment_text: commentText, user_id: <?php echo $userID; ?> },
-        success: function(response) {
+        success: function(responxse) {
             location.reload(); // Refresh the page
         },
         error: function() {

@@ -168,3 +168,31 @@ CREATE TABLE Comments (
     FOREIGN KEY (PostID) REFERENCES Posts(PostID),
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
+
+
+-- School name
+CREATE TABLE IF NOT EXISTS SchoolName(
+	SchoolNameID INT(6) PRIMARY KEY AUTO_INCREMENT,
+    school_Name VARCHAR(200) NOT NULL
+)ENGINE = INNODB;
+
+
+-- Degree
+CREATE TABLE IF NOT EXISTS Degree(
+	DegreeID INT(6) PRIMARY KEY AUTO_INCREMENT,
+    degree_Type VARCHAR(50) NOT NULL
+)ENGINE = INNODB;
+
+
+-- Field of study
+CREATE TABLE IF NOT EXISTS FieldStudy(
+	FieldStudyID INT(6) PRIMARY KEY AUTO_INCREMENT,
+    FieldStudyType varchar(50) NOT NULL
+)ENGINE = INNODB;
+
+
+-- Skills
+CREATE TABLE IF NOT EXISTS developerSkills(
+    developerSkillsID INT(6) PRIMARY KEY AUTO_INCREMENT,
+    skills_type VARCHAR(50) NOT NULL
+)ENGINE=INNODB;
