@@ -73,7 +73,7 @@ if (isset($_POST['login'])) {
    <p class="signUp">New To FlexConnect? <button class="bt" onclick="window.location.href='signup.php'">Signup</button></p> 
 
    <p class="fot">© FlexConnect 2024</p>
-   <p class="fot">Presented By Elio Ghrayeb, Charbel Bou Faddoul , Christ Nakhoul</p>
+   <p class="fot">Presented By Charbel Bou Faddoul, Christ Nakhoul</p>
    
 </div>
         </div>

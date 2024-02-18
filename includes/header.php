@@ -46,9 +46,9 @@
 
         <div class="LinksHeader">
             <ul class='d-flex justify-content-between'>
-                <li><a href='./index.php'>Home</a></li>
-                <li><a href=''>Jobs</a></li>
-                <li><a href=''>Message</a></li>
+                <li><a href='../index.php'>Home</a></li>
+                <li><a href='pages/jobs.php'>Jobs</a></li>
+                <li><a href=''>Message</a></li> 
                 <li><a href=''>Notifications</a></li>
                 <li><a href='../pages/logout.php'>Logout</a></li>
                 <li><a href="pages/profile.php"><img src="../<?php echo $profilePictureUrl; ?>" alt=""></a></li>

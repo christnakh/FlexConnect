@@ -196,3 +196,17 @@ CREATE TABLE IF NOT EXISTS developerSkills(
     developerSkillsID INT(6) PRIMARY KEY AUTO_INCREMENT,
     skills_type VARCHAR(50) NOT NULL
 )ENGINE=INNODB;
+
+
+-- Apply job
+CREATE TABLE IF NOT EXISTS ApplyJob(
+    ApplyID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT,
+    JobID INT,
+    EmployerID INT,
+    ConnectionStatus VARCHAR(255),
+    ConnectedSince DATE, 
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (JobID) REFERENCES Jobs(JobID),
+    FOREIGN KEY (EmployerID) REFERENCES Jobs(EmployerID)
+)ENGINE = INNODB;
