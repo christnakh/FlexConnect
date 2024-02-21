@@ -37,7 +37,7 @@
 <body>
     <header class="Header d-flex justify-content-between">
         <div class="logo">
-           <img src="../img/logo.jpg" alt="">
+           <img src="../img/logo.png" alt="">
         </div>
 
         <div class="">
