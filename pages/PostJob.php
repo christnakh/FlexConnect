@@ -7,10 +7,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <title>Post job</title>
 
+    <style>
+        #jobContainer{
+            display: flex;
+            justify-content: flex-start;
+            gap: 20%;
+            padding: 20px;
+        }
+
+        #asideNav div:hover{
+            cursor: pointer;
+        }
+    </style>
+ 
 </head>
 <body>
 
-    <section>
+    <section id="jobContainer">
+        <aside id="asideNav">
+            <div><a href="jobs.php">Back To job</a></div>
+            <div><a href="User_job_post.php">My post</a></div>
+            <div>Post job</div>
+            <div><a href="PeopleApplied.php">People applied to my job</a></div>
+            <div><a href="jobAppliedTo.php">Job Applied to</a></div>
+        </aside>
+
         <article id="PostJob">
             <form action="post_job.php" method="post">
                 <label for="title">Job Title:</label>
