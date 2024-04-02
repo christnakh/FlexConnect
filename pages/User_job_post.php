@@ -11,6 +11,16 @@ $resultAppliedJob = $conn -> query($selectPeopleApplied);
 $selectJobAppliedTo = "SELECT u.*, j.*, a.* FROM Users as u INNER JOIN Jobs as j on u.UserID = j.EmployerID INNER JOIN ApplyJob as a on j.JobID = a.JobID WHERE a.UserID = $_SESSION[user_id]";
 $resultJobAppliedTo = $conn -> query($selectJobAppliedTo);
 
+// $selectJobPeopleApplied = "
+//     SELECT j.*, a.*, u.Name, u.ProfilePictureURL, u.random_url
+//     FROM Jobs AS j
+//     LEFT JOIN ApplyJob AS a ON j.JobID = a.JobID
+//     LEFT JOIN Users AS u ON a.UserID = u.UserID
+//     WHERE j.EmployerID = $_SESSION[user_id]
+//     ORDER BY j.JobID, a.ApplyID
+// ";
+// $resultJobPeopleApplied = $conn->query($selectJobPeopleApplied);
+
 ?>
 
 <!DOCTYPE html>
@@ -77,6 +87,7 @@ $resultJobAppliedTo = $conn -> query($selectJobAppliedTo);
 
                                 <div>
                                     <a href="delete_job_post.php?job_id=<?php echo $row['JobID']; ?>">Delete post</a>
+                                    <a href="update_job_post.php?job_id=<?php echo $row['JobID']; ?>">Edit post</a>
                                 </div>
                             </div>
                             <br><br><br>
@@ -87,7 +98,7 @@ $resultJobAppliedTo = $conn -> query($selectJobAppliedTo);
         </article>
 
         <article id="PostJob">
-            <form action="post_job.php" method="post">
+            <!--<form action="post_job.php" method="post">
                 <label for="title">Job Title:</label>
                 <input type="text" id="title" name="title" required>
                 <br><br>
@@ -103,36 +114,62 @@ $resultJobAppliedTo = $conn -> query($selectJobAppliedTo);
                 <input type="date" id="applicationDeadline" name="applicationDeadline" required>
                 <br><br>
                 <button type="submit">Post Job</button>
-            </form>
+            </form>-->
         </article>
 
         <article id="PeopleApplied">
             <?php
-                if ($resultAppliedJob -> num_rows > 0){
-                    while ($rowAppliedJob = $resultAppliedJob -> fetch_assoc()){
-                        ?>
-                            <div>
-                                <div>
-                                    <div>
-                                        <img src="<?php echo $rowAppliedJob['ProfilePictureURL']; ?>" alt="Profile" class="mr-3 rounded-circle">
-                                        <div>
-                                            <h5><?php echo $rowAppliedJob['Name']; ?></h5>
-                                            <p><?php echo $rowAppliedJob['ConnectionStatus']; ?></p>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <p><?php echo $rowAppliedJob['ConnectedSince']; ?></p>
-                                    </div>
-
-                                    <div>
-                                        <a href="#">Contact <?php echo $rowAppliedJob['Name']; ?></a>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php
-                    }
-                }
+//                if ($resultJobPeopleApplied->num_rows > 0) {
+//                    $currentJobID = null;
+//
+//                    while ($rowJobPeopleApplied = $resultJobPeopleApplied->fetch_assoc()) {
+//                        if ($rowJobPeopleApplied['JobID'] != $currentJobID) {
+//                            // Display job information
+//                            if ($currentJobID !== null) {
+//                                echo '</ul>';
+//                                echo '</div>';
+//                                echo '<br><br><br>';
+//                            }
+//
+//                            echo '<div>';
+//                            echo '<div>';
+//                            echo '<div>';
+//                            echo '<img src="' . $rowJobPeopleApplied['ProfilePictureURL'] . '" alt="Profile" class="mr-3 rounded-circle">';
+//                            echo '<div>';
+//                            echo '<h5>' . $rowJobPeopleApplied['Name'] . '</h5>';
+//                            echo '<p>' . $rowJobPeopleApplied['Title'] . '</p>';
+//                            echo '</div>';
+//                            echo '</div>';
+//
+//                            echo '<div>';
+//                            echo '<p>' . $rowJobPeopleApplied['PostedDate'] . '</p>';
+//                            echo '<p>' . $rowJobPeopleApplied['Location'] . '</p>';
+//                            echo '</div>';
+//                            echo '</div>';
+//
+//                            echo '<div>';
+//                            echo '<p>' . $rowJobPeopleApplied['Description'] . '</p>';
+//                            echo '</div>';
+//
+//                            echo '<div>';
+//                            echo '<h6>People who applied to this job:</h6>';
+//                            echo '<ul>';
+//                        }
+//
+//                        // Display applicant information
+//                        echo '<li style="list-style-type: none;">';
+//                        echo '<img src="' . $rowJobPeopleApplied['ProfilePictureURL'] . '" alt="Applicant Profile" class="mr-3 rounded-circle">';
+//                        echo '<span>' . $rowJobPeopleApplied['Name'] . '</span>';
+//                        echo '<span><a href="UserJobDetail.php?url=' . $rowJobPeopleApplied['random_url'] . '">Details</a></span>';
+//                        echo '</li> <br><br><br>';
+//
+//                        $currentJobID = $rowJobPeopleApplied['JobID'];
+//                    }
+//
+//                    echo '</ul>';
+//                    echo '</div>';
+//                    echo '<br><br><br>';
+//                }
             ?>
         </article>
 

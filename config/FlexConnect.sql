@@ -1,20 +1,16 @@
-drop database FlexConnect;
-CREATE database FlexConnect;
-USE FlexConnect;
-
 -- Users Table
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(255),
     Email VARCHAR(255) UNIQUE,
-    birth_date date,
-    phone_number varchar(24),
+    birth_date DATE,
+    phone_number VARCHAR(24),
     Password VARCHAR(255),
     Location VARCHAR(255),
     Industry VARCHAR(255),
     Summary TEXT,
     ProfilePictureURL VARCHAR(255),
-    random_url char(15)
+    random_url CHAR(15)
 );
 
 -- Education Table
@@ -26,7 +22,7 @@ CREATE TABLE Education (
     FieldOfStudy VARCHAR(255),
     StartYear YEAR,
     EndYear YEAR,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Experience Table
@@ -39,7 +35,7 @@ CREATE TABLE Experience (
     StartDate DATE,
     EndDate DATE,
     Description TEXT,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Skills Table
@@ -47,7 +43,7 @@ CREATE TABLE Skills (
     SkillID INT AUTO_INCREMENT PRIMARY KEY,
     UserID INT,
     SkillName VARCHAR(255),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Connections Table
@@ -57,8 +53,8 @@ CREATE TABLE Connections (
     UserID2 INT,
     ConnectionStatus VARCHAR(255),
     ConnectedSince DATE, 
-    FOREIGN KEY (UserID1) REFERENCES Users(UserID),
-    FOREIGN KEY (UserID2) REFERENCES Users(UserID)
+    FOREIGN KEY (UserID1) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (UserID2) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Jobs Table
@@ -70,7 +66,7 @@ CREATE TABLE Jobs (
     Location VARCHAR(255),
     PostedDate DATE,
     ApplicationDeadline DATE,
-    FOREIGN KEY (EmployerID) REFERENCES Users(UserID)
+    FOREIGN KEY (EmployerID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Applications Table
@@ -80,8 +76,8 @@ CREATE TABLE Applications (
     ApplicantID INT,
     ApplicationDate DATE,
     Status VARCHAR(255),
-    FOREIGN KEY (JobID) REFERENCES Jobs(JobID),
-    FOREIGN KEY (ApplicantID) REFERENCES Users(UserID)
+    FOREIGN KEY (JobID) REFERENCES Jobs(JobID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ApplicantID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Posts Table
@@ -91,7 +87,7 @@ CREATE TABLE Posts (
     Content TEXT,
     PostDate DATETIME,
     ImageURL VARCHAR(255),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- PostInteractions Table
@@ -102,8 +98,8 @@ CREATE TABLE PostInteractions (
     ReactionStatus BOOLEAN,
     Comment TEXT,
     InteractionDate DATETIME,
-    FOREIGN KEY (PostID) REFERENCES Posts(PostID),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (PostID) REFERENCES Posts(PostID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Messages Table
@@ -113,8 +109,8 @@ CREATE TABLE Messages (
     ReceiverID INT,
     MessageText TEXT,
     Timestamp DATETIME,
-    FOREIGN KEY (SenderID) REFERENCES Users(UserID),
-    FOREIGN KEY (ReceiverID) REFERENCES Users(UserID)
+    FOREIGN KEY (SenderID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ReceiverID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Groups Table
@@ -131,8 +127,8 @@ CREATE TABLE UserGroups (
     UserID INT,
     Role VARCHAR(255),
     JoinedDate DATE,
-    FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (GroupID) REFERENCES Groups(GroupID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Endorsements Table
@@ -141,9 +137,9 @@ CREATE TABLE Endorsements (
     SkillID INT,
     EndorsedByUserID INT,
     EndorsedUserID INT,
-    FOREIGN KEY (SkillID) REFERENCES Skills(SkillID),
-    FOREIGN KEY (EndorsedByUserID) REFERENCES Users(UserID),
-    FOREIGN KEY (EndorsedUserID) REFERENCES Users(UserID)
+    FOREIGN KEY (SkillID) REFERENCES Skills(SkillID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (EndorsedByUserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (EndorsedUserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Recommendations Table
@@ -153,10 +149,9 @@ CREATE TABLE Recommendations (
     RecommendedUserID INT,
     RecommendationText TEXT,
     Date DATE,
-    FOREIGN KEY (RecommendedByUserID) REFERENCES Users(UserID),
-    FOREIGN KEY (RecommendedUserID) REFERENCES Users(UserID)
+    FOREIGN KEY (RecommendedByUserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (RecommendedUserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 -- Comments Table
 CREATE TABLE Comments (
@@ -165,37 +160,36 @@ CREATE TABLE Comments (
     UserID INT,
     CommentText TEXT,
     CommentDate DATETIME,
-    FOREIGN KEY (PostID) REFERENCES Posts(PostID),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (PostID) REFERENCES Posts(PostID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 -- School name
 CREATE TABLE IF NOT EXISTS SchoolName(
-	SchoolNameID INT(6) PRIMARY KEY AUTO_INCREMENT,
+    SchoolNameID INT(6) PRIMARY KEY AUTO_INCREMENT,
     school_Name VARCHAR(200) NOT NULL
-)ENGINE = INNODB;
+) ENGINE = INNODB;
 
 
 -- Degree
 CREATE TABLE IF NOT EXISTS Degree(
-	DegreeID INT(6) PRIMARY KEY AUTO_INCREMENT,
+    DegreeID INT(6) PRIMARY KEY AUTO_INCREMENT,
     degree_Type VARCHAR(50) NOT NULL
-)ENGINE = INNODB;
+) ENGINE = INNODB;
 
 
 -- Field of study
 CREATE TABLE IF NOT EXISTS FieldStudy(
-	FieldStudyID INT(6) PRIMARY KEY AUTO_INCREMENT,
-    FieldStudyType varchar(50) NOT NULL
-)ENGINE = INNODB;
+    FieldStudyID INT(6) PRIMARY KEY AUTO_INCREMENT,
+    FieldStudyType VARCHAR(50) NOT NULL
+) ENGINE = INNODB;
 
 
 -- Skills
 CREATE TABLE IF NOT EXISTS developerSkills(
     developerSkillsID INT(6) PRIMARY KEY AUTO_INCREMENT,
     skills_type VARCHAR(50) NOT NULL
-)ENGINE=INNODB;
+) ENGINE=INNODB;
 
 
 -- Apply job
@@ -206,7 +200,7 @@ CREATE TABLE IF NOT EXISTS ApplyJob(
     EmployerID INT,
     ConnectionStatus VARCHAR(255),
     ConnectedSince DATE, 
-    FOREIGN KEY (UserID) REFERENCES Users(UserID),
-    FOREIGN KEY (JobID) REFERENCES Jobs(JobID),
-    FOREIGN KEY (EmployerID) REFERENCES Jobs(EmployerID)
-)ENGINE = INNODB;
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (JobID) REFERENCES Jobs(JobID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (EmployerID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = INNODB;
