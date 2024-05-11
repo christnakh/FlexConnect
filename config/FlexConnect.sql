@@ -1,17 +1,5 @@
 -- Users Table
-CREATE TABLE Users (
-    UserID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(255),
-    Email VARCHAR(255) UNIQUE,
-    birth_date DATE,
-    phone_number VARCHAR(24),
-    Password VARCHAR(255),
-    Location VARCHAR(255),
-    Industry VARCHAR(255),
-    Summary TEXT,
-    ProfilePictureURL VARCHAR(255),
-    random_url CHAR(15)
-);
+
 
 -- Education Table
 CREATE TABLE Education (
@@ -102,34 +90,7 @@ CREATE TABLE PostInteractions (
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Messages Table
-CREATE TABLE Messages (
-    MessageID INT AUTO_INCREMENT PRIMARY KEY,
-    SenderID INT,
-    ReceiverID INT,
-    MessageText TEXT,
-    Timestamp DATETIME,
-    FOREIGN KEY (SenderID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (ReceiverID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
-);
 
--- Groups Table
-CREATE TABLE Groups (
-    GroupID INT AUTO_INCREMENT PRIMARY KEY,
-    GroupName VARCHAR(255),
-    Description TEXT
-);
-
--- UserGroups Table
-CREATE TABLE UserGroups (
-    UserGroupID INT AUTO_INCREMENT PRIMARY KEY,
-    GroupID INT,
-    UserID INT,
-    Role VARCHAR(255),
-    JoinedDate DATE,
-    FOREIGN KEY (GroupID) REFERENCES Groups(GroupID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
-);
 
 -- Endorsements Table
 CREATE TABLE Endorsements (
@@ -216,4 +177,48 @@ CREATE TABLE Notification (
     Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (SenderUserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (ReceiverUserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE Users (
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(255),
+    Email VARCHAR(255) UNIQUE,
+    birth_date DATE,
+    phone_number VARCHAR(24),
+    Password VARCHAR(255),
+    Location VARCHAR(255),
+    Industry VARCHAR(255),
+    Summary TEXT,
+    ProfilePictureURL VARCHAR(255),
+    random_url CHAR(15)
+);
+
+-- Messages Table
+CREATE TABLE Messages (
+    MessageID INT AUTO_INCREMENT PRIMARY KEY,
+    SenderID INT,
+    ReceiverID INT,
+    MessageText TEXT,
+    Timestamp DATETIME,
+    FOREIGN KEY (SenderID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ReceiverID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Groups Table
+CREATE TABLE Groups (
+    GroupID INT AUTO_INCREMENT PRIMARY KEY,
+    GroupName VARCHAR(255),
+    Description TEXT
+);
+
+-- UserGroups Table
+CREATE TABLE UserGroups (
+    UserGroupID INT AUTO_INCREMENT PRIMARY KEY,
+    GroupID INT,
+    UserID INT,
+    Role VARCHAR(255),
+    JoinedDate DATE,
+    FOREIGN KEY (GroupID) REFERENCES Groups(GroupID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );

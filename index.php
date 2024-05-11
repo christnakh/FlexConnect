@@ -176,16 +176,41 @@ if (!$result) {
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
 
-$('.reaction').click(function(){
-    var button = $(this);
-    var reaction = button.data('reaction');
 
-    // Check if the button is already active
-    if (!button.hasClass('active')) {
-        // If not active, handle the reaction
-        handleReaction(button, reaction);
-    }
+
+$(document).ready(function() {
+    $('.reaction').click(function() {
+        var button = $(this);
+        var reaction = button.data('reaction');
+        var post_id = button.data('post-id');
+        var user_id = <?php echo $userID; ?>;  // Make sure $userID is defined and accessible
+
+        $.ajax({
+            url: '/pages/handle_post.php', // Correct path to your PHP script
+            type: 'POST',
+            data: { post_id: post_id, user_id: user_id, reaction: reaction },
+            dataType: 'json',
+            success: function(data) {
+                if (data && !data.error) {
+                    var reactionSection = button.closest('.reaction-section');
+                    reactionSection.find('.like-count').text(data.likes);
+                    reactionSection.find('.love-count').text(data.loves);
+                    reactionSection.find('.dislike-count').text(data.dislikes);
+
+                    // Update active class
+                    reactionSection.find('.reaction').removeClass('active');
+                    button.addClass('active');
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Error occurred while updating reaction: ' + error);
+            }
+        });
+    });
 });
+
 
 // Call the handleReaction function on page load to set the active class for previous reactions
 $('.reaction.active').each(function() {
@@ -198,7 +223,7 @@ function handleReaction(button, reaction) {
     var post_id = button.data('post-id');
 
     $.ajax({
-        url: './pages/handle_post.php',
+        url: '/pages/handle_post.php',
         type: 'post',
         data: { post_id: post_id, user_id: <?php echo $userID; ?>, reaction: reaction },
         success: function(response) {

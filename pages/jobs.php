@@ -1,5 +1,5 @@
 <?php
-include "../includes/header.php";
+include "../config/db.php";
 
 // Get current date
 $currentDate = date("Y-m-d");
@@ -19,12 +19,34 @@ $resultJob = $conn -> query($selectJob);
 
     <style>
         #jobContainer{
-            display: flex;
             justify-content: flex-start;
             gap: 20%;
-            padding: 20px;
+        }
+
+        #asideNav{
+            position: fixed;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #4D94E2;
+            color: white;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            #asideNav{
+                width: 10%;
+            }
+        }
+
+        #asideNav a{
+            color: white;
         }
         
+        #asideNav div{
+            text-align: center;
+        }
+
         #asideNav div:hover{
             cursor: pointer;
         }
@@ -32,7 +54,7 @@ $resultJob = $conn -> query($selectJob);
 </head>
 <body>
     
-    <section id="jobContainer">
+    <section id="jobContainer" class='d-md-flex'>
         <aside id="asideNav">
             <div>Jobs</div>
             <div><a href="User_job_post.php">My job post</a></div>

@@ -7,7 +7,7 @@ $selectJobPeopleApplied = "
     FROM Jobs AS j
     LEFT JOIN ApplyJob AS a ON j.JobID = a.JobID
     LEFT JOIN Users AS u ON a.UserID = u.UserID
-    WHERE j.EmployerID = $_SESSION[user_id]
+    WHERE a.EmployerID = $_SESSION[user_id]
     ORDER BY j.JobID, a.ApplyID
 ";
 $resultJobPeopleApplied = $conn->query($selectJobPeopleApplied);

@@ -53,29 +53,54 @@ if (isset($_POST['login'])) {
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/login.css">
     <title>Login</title>
+    <style>
+        body{
+            height: 100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+        .all{
+            display:flex;
+            flex-direction:column; /* Change to column direction */
+            max-width:80%;
+            text-align:center;
+            margin:auto;
+            padding: 60px; /* Reduced padding for better mobile view */
+            border-radius: 10px;
+        }
+        input{
+            text-align:left;
+            text-decoration: none;
+            border: 2px solid lightgray;
+        }
+        img{
+            margin-bottom:20px; /* Add margin at the bottom for spacing */
+        }
+    </style>
 </head>
-<body>
-        <div class="all">
-            <div class="second">
-                <img src="../img/logo.png" width="450px" height="450px">
+<body class="bg-primary">
+    <div class="container"> <!-- Added Bootstrap container -->
+        <div class="row justify-content-center"> <!-- Added Bootstrap row and justify-content-center -->
+            <div class="col-12 col-lg-6"> <!-- Adjusted Bootstrap column classes for responsiveness -->
+                <div class="all bg-light row d-flex justify-content-between">
+                    <div class="text-center mb-3">
+                        <img src="../img/logo.png" class="col-8 col-lg-6"> <!-- Adjusted column classes -->
+                    </div>
+                    <div class="main">
+                        <h2 style="color:black;">Login to your account</h2>
+                        <form method="post" action="">
+                            <label>Email<br><input type="text" name="login_input" required></label><br>
+                            <label>Password<br><input type="password" name="password" required></label><br>
+                            <input class="logbutt" type="submit" name="login" value="Login">
+                        </form>
+                        <p class="signUp">New To FlexConnect? <button class="bt" onclick="window.location.href='signup.php'">Signup</button></p> 
+                        <p class="fot">© FlexConnect 2024</p>
+                        <p class="fot">Presented By Charbel Bou Faddoul, Christ Nakhoul, Elio Ghrayeb</p>
+                    </div>
+                </div>
             </div>
-
-    <div class="main">
-        
-        <h2 style="color:black;">Login to your account</h2>
-        <form method="post" action="">
-            <label>Email<br><input type="text" name="login_input" required></label><br>
-            <label>Password<br><input type="password" name="password" required></label><br>
-            <h2 class="h22"><a href="#">Forgot password?</a></h2>
-            <input class="logbutt" type="submit" name="login" value="Login">
-        </form>
-
-   <p class="signUp">New To FlexConnect? <button class="bt" onclick="window.location.href='signup.php'">Signup</button></p> 
-
-   <p class="fot">© FlexConnect 2024</p>
-   <p class="fot">Presented By Charbel Bou Faddoul, Christ Nakhoul</p>
-   
-</div>
         </div>
+    </div>
 </body>
 </html>
