@@ -3,55 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Job</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-    <title>Post job</title>
-
     <style>
-        #jobContainer{
-            display: flex;
-            justify-content: flex-start;
-            gap: 20%;
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
             padding: 20px;
         }
+        #jobContainer {
+            display: flex;
+            justify-content: flex-start;
+        }
+        #asideNav {
+            width: 200px;
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+        }
 
-        #asideNav div:hover{
+        #asideNav a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            border-radius: 4px;
+        }
+
+        #asideNav a:hover {
+            background-color: #495057;
+        }
+
+        #PostJob {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+        /* Form styling */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .currentPage a{
+            background-color: #495057;
         }
     </style>
- 
 </head>
 <body>
 
-    <section id="jobContainer">
-        <aside id="asideNav">
-            <div><a href="jobs.php">Back To job</a></div>
-            <div><a href="User_job_post.php">My post</a></div>
-            <div>Post job</div>
-            <div><a href="PeopleApplied.php">People applied to my job</a></div>
-            <div><a href="jobAppliedTo.php">Job Applied to</a></div>
-        </aside>
+<section id="jobContainer">
+    <aside id="asideNav"> <br>
+        <div><a href="jobs.php">Back to Jobs</a></div>
+        <div><a href="User_job_post.php">My Posts</a></div>
+        <div class='currentPage'><a>Post Job</a></div>
+        <div><a href="PeopleApplied.php">People Applied to My Jobs</a></div>
+        <div><a href="jobAppliedTo.php">Jobs I've Applied to</a></div>
+    </aside>
 
-        <article id="PostJob">
-            <form action="post_job.php" method="post">
-                <label for="title">Job Title:</label>
-                <input type="text" id="title" name="title" required>
-                <br><br>
-                <label for="description">Job Description:</label>
-                <textarea id="description" name="description" required></textarea>
-                <br><br>
-                <label for="location">Location:</label>
-                <input type="text" id="location" name="location" required>
-                <br><br>
-                <label for="postedDate">Posted Date: <?php echo date('Y-m-d'); ?></label>
-                <br><br>
-                <label for="applicationDeadline">Application Deadline:</label>
-                <input type="date" id="applicationDeadline" name="applicationDeadline" required>
-                <br><br>
-                <button type="submit">Post Job</button>
-            </form>
-        </article>
-    </section>
+    <article id="PostJob">
+        <h2>Post a Job</h2>
+        <form action="post_job.php" method="post">
+            <label for="title">Job Title:</label>
+            <input type="text" id="title" name="title" required>
+            <br><br>
+            <label for="description">Job Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+            <br><br>
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+            <br><br>
+            <label for="applicationDeadline">Application Deadline:</label>
+            <input type="date" id="applicationDeadline" name="applicationDeadline" required>
+            <br><br>
+            <button type="submit">Post Job</button>
+        </form>
+    </article>
+</section>
 
 </body>
 </html>

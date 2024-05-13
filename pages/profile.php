@@ -69,9 +69,13 @@ if ($experienceResult->num_rows > 0) {
     <title>User Profile</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <style>
         /* Custom styles */
+        body{
+            font-family:'Rubik',sans-serif;
+        }
         .modal {
             display: none;
             position: fixed;
@@ -107,6 +111,14 @@ if ($experienceResult->num_rows > 0) {
             text-decoration: none;
             cursor: pointer;
         }
+
+        .card-body .img-fluid {
+            width: 100%;
+            height: auto;
+            border-radius: 0;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
     </style>
 </head>
 <body>
@@ -125,12 +137,13 @@ if ($experienceResult->num_rows > 0) {
             <form action="logout.php" method="post">
                 <input type="submit" class="btn btn-danger" value="Logout">
             </form>
+            <br> 
             <a href="/" class="btn btn-secondary">Back home</a>
         </div>
 
         <!-- Add CSS for the modal -->
 
-        <h1>User Posts</h1>
+        <h1>My Posts</h1>
         <!-- Posts and other content -->
 
         <!-- The Modal -->
@@ -138,13 +151,10 @@ if ($experienceResult->num_rows > 0) {
             <?php while($post = $postsResult->fetch_assoc()): ?>
                 <div class="card my-3">
                     <div class="card-body">
-                        <img src="<?php echo $post['ProfilePictureURL']; ?>" alt="Profile Picture" class="rounded-circle">
                         <h5 class="card-title"><?php echo $post['Name']; ?></h5>
                         <p class="card-text"><?php echo htmlspecialchars($post['Content']); ?></p>
                         <img src="<?php echo '../uploads/posts/'.($post['ImageURL']); ?>" alt="Post Image" class="img-fluid">
-                        <p class="card-text">Likes: <?php echo $post['Likes']; ?></p>
-                        <p class="card-text">Dislikes: <?php echo $post['Dislikes']; ?></p>
-                        <p class="card-text">Loves: <?php echo $post['Loves']; ?></p>
+                        <br>
                         <!-- Edit and Delete buttons (only show if the post belongs to the logged-in user) -->
                         <?php if ($post['UserID'] == $userID): ?>
                             <a href="javascript:void(0)" onclick="openEditModal('<?php echo $post['PostID']; ?>', '<?php echo htmlspecialchars($post['Content'], ENT_QUOTES); ?>')" class="btn btn-primary">Edit</a>
@@ -212,3 +222,4 @@ if ($experienceResult->num_rows > 0) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

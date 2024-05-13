@@ -24,15 +24,88 @@ $resultJobPeopleApplied = $conn->query($selectJobPeopleApplied);
     <title>Post job</title>
 
     <style>
-        #jobContainer{
-            display: flex;
-            justify-content: flex-start;
-            gap: 20%;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
             padding: 20px;
         }
+        #jobContainer {
+            display: flex;
+            justify-content: flex-start;
+        }
+        #asideNav {
+            width: 200px;
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+        }
 
-        #asideNav div:hover{
-            cursor: pointer;
+        #asideNav a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            border-radius: 4px;
+        }
+
+        #asideNav a:hover {
+            background-color: #495057;
+        }
+
+        .currentPage a{
+            background-color: #495057;
+        }
+
+        .main {
+            margin-left: 20px; /* Adjust margin for spacing between the sidebar and main content */
+            flex-grow: 1; /* Allow the main div to grow to fill available space */
+        }
+
+        .job-post {
+            border-radius: 8px; /* Add border radius for rounded corners */
+            padding: 20px; /* Add padding for content spacing */
+            margin-bottom: 20px; /* Add margin between job posts */
+            background-color: #f1f1f1; /* Optional: Set background color */
+        }
+
+        .job-info h5,
+        .job-info{
+            margin: 0;
+        }
+
+        .posted-date{
+            color:#666;
+            margin-left:1100px
+        }
+
+        .job-info p {
+            margin-bottom: 10px;
+        }
+
+        .applicant-info {
+            margin-top: 10px; /* Add margin between job info and applicant info */
+        }
+
+        .applicant-info p {
+            margin: 5px 0;
+        }
+
+        .applicant-info img {
+            width: 50px; /* Set width for applicant profile image */
+            height: 50px; /* Set height for applicant profile image */
+            border-radius: 50%; /* Make the image circular */
+            margin-right: 10px; /* Add margin between image and text */
+        }
+        ul{
+            list-style-type:none;
+        }
+        h5{
+            display:flex;
+            flex-direction:row;
+
         }
     </style>
 </head>
@@ -43,73 +116,37 @@ $resultJobPeopleApplied = $conn->query($selectJobPeopleApplied);
             <div><a href="jobs.php">Back To job</a></div>
             <div><a href="User_job_post.php">My post</a></div>
             <div><a href="PostJob.php">Post job</a></div>
-            <div>People applied to my job</div>
+            <div class='currentPage'><a>People applied to my job</a></div>
             <div><a href="jobAppliedTo.php">Job Applied to</a></div>
         </aside>
 
-        <article id="PeopleApplied">
-            <?php
-            if ($resultJobPeopleApplied->num_rows > 0) {
-                $currentJobID = null;
-
-                while ($rowJobPeopleApplied = $resultJobPeopleApplied->fetch_assoc()) {
-                    if ($rowJobPeopleApplied['JobID'] != $currentJobID) {
-                        // Display job information
-                        if ($currentJobID !== null) {
-                            echo '</ul>';
-                            echo '</div>';
-                            echo '<br><br><br>';
-                        }
-
-                        echo '<div>';
-                        echo '<div>';
-                        echo '<div>';
-                        echo '<div>';
-                        echo '<h5>' . $rowJobPeopleApplied['Name'] . '</h5>';
-                        echo '<p>' . $rowJobPeopleApplied['Title'] . '</p>';
-                        echo '</div>';
-                        echo '</div>';
-
-                        echo '<div>';
-                        echo '<p>' . $rowJobPeopleApplied['PostedDate'] . '</p>';
-                        echo '<p>' . $rowJobPeopleApplied['ApplicationDeadline'] . '</p>';
-                        echo '<p>' . $rowJobPeopleApplied['Location'] . '</p>';
-                        echo '</div>';
-                        echo '</div>';
-
-                        echo '<div>';
-                        echo '<p>' . $rowJobPeopleApplied['Description'] . '</p>';
-                        echo '</div>';
-
-                        echo '<div>';
-                        echo '<h6>People who applied to this job:</h6>';
-                        echo '<ul>';
-                    }
-
-                    // Display applicant information
-                    if ($rowJobPeopleApplied['ApplyID'] !== null) {
-                        echo '<li style="list-style-type: none;">';
-                        echo '<img src="' . $rowJobPeopleApplied['ProfilePictureURL'] . '" alt="Applicant Profile" class="mr-3 rounded-circle">';
-                        echo '<span>' . $rowJobPeopleApplied['Name'] . '</span>';
-                        echo '<span><a href="UserJobDetail.php?url=' . $rowJobPeopleApplied['random_url'] . '">Details</a></span>';
-                        echo '<span>' . $rowJobPeopleApplied['STATUS'] . '</span>';
-                        echo '<span><button onclick="acceptApplication(\'' . $rowJobPeopleApplied['ApplyID'] . '\', \'' . $rowJobPeopleApplied['UserID'] . '\')">Accept</button></span>';
-                        echo '<span><button onclick="declineApplication(\'' . $rowJobPeopleApplied['ApplyID'] . '\', \'' . $rowJobPeopleApplied['UserID'] . '\')">Decline</button></span>';                        
-                        echo '</li> <br><br><br>';
-                    }
-
-                    $currentJobID = $rowJobPeopleApplied['JobID'];
-                }
-
-                // Check if there are any remaining applicants for the last job
-                if ($currentJobID !== null) {
-                    echo '</ul>';
-                    echo '</div>';
-                    echo '<br><br><br>';
-                }
+        <article class="main">
+        <?php
+        if ($resultJobPeopleApplied->num_rows > 0) {
+            while ($rowJobPeopleApplied = $resultJobPeopleApplied->fetch_assoc()) {
+                echo '<div class="job-post">';
+                echo '<div class="job-info">';
+                echo '<h5>' . $rowJobPeopleApplied['Name'].'  <p class="posted-date">' .  $rowJobPeopleApplied['PostedDate'] .' / '.$rowJobPeopleApplied['ApplicationDeadline'] . '</p>'.'</h5>';
+                echo '<h5 style="color:#666">' . $rowJobPeopleApplied['Title'] . '</h5>';
+                echo '<h5 style="color:#666">' . $rowJobPeopleApplied['Location'] . '</h5>';                
+                echo '<div class="applicant-info">';
+                echo '<p><strong>Applicant Info:</strong></p>';
+                echo '<ul>';
+                echo '<img src="' . $rowJobPeopleApplied['ProfilePictureURL'] . '" alt="Applicant Profile">';
+                echo '<li><strong>Name:</strong> ' . $rowJobPeopleApplied['Name'] . '</li>';
+                echo '<li><strong>Status:</strong> ' . $rowJobPeopleApplied['STATUS'] . '</li>';
+                echo '<li><strong>More Details:</strong> <a href="UserJobDetail.php?url=' . $rowJobPeopleApplied['random_url'] . '">Details</a></li>';
+                echo '<li><button onclick="acceptApplication(\'' . $rowJobPeopleApplied['ApplyID'] . '\', \'' . $rowJobPeopleApplied['UserID'] . '\')">Accept</button>  ';
+                echo '<button onclick="declineApplication(\'' . $rowJobPeopleApplied['ApplyID'] . '\', \'' . $rowJobPeopleApplied['UserID'] . '\')">Decline</button></li>';   
+                echo '</ul>';
+               
+                echo '</div>'; // Close applicant-info div
+                echo '</div>'; // Close job-info div
+                echo '</div>'; // Close job-post div
             }
-            ?>
-        </article>
+        }
+        ?>
+    </article>
     </section>
 
     <script>
@@ -125,7 +162,7 @@ $resultJobPeopleApplied = $conn->query($selectJobPeopleApplied);
             }
         }
     </script>
-
+                 
 
 </body>
 </html>

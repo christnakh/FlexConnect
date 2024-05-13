@@ -1,0 +1,23 @@
+body{
+    height: 100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.all{
+    display:flex;
+    flex-direction:column; 
+    max-width:80%;
+    text-align:center;
+    margin:auto;
+    padding: 60px;
+    border-radius: 10px;
+}
+input{
+    text-align:left;
+    text-decoration: none;
+    border: 2px solid lightgray;
+}
+img{
+    margin-bottom:20px;
+}

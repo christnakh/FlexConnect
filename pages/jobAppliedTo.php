@@ -1,5 +1,4 @@
 <?php
-
 include "../config/db.php";
 
 $selectJobAppliedTo = "SELECT u.*, j.*, a.* FROM Users AS u
@@ -15,33 +14,189 @@ $resultJobAppliedTo = $conn->query($selectJobAppliedTo);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs Applied To</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-    <title>Job Applications</title>
-
     <style>
-        #jobContainer {
+        /* Set html and body height to 100% */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        body {
             display: flex;
-            justify-content: flex-start;
-            gap: 20%;
+            flex-direction: column;
             padding: 20px;
         }
 
-        #asideNav div:hover {
-            cursor: pointer;
+        #jobContainer {
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px;
         }
-    </style>
 
+        #asideNav {
+            width: 200px;
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        #asideNav a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            border-radius: 4px;
+        }
+
+        #asideNav a:hover {
+            background-color: #495057;
+        }
+
+        #JobApplied {
+            flex-grow: 1;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .applied-job {
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .applied-job img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .job-details {
+            flex-grow: 1;
+        }
+
+        .job-details h5 {
+            color: #007bff;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .job-details p {
+            margin-bottom: 10px;
+        }
+
+        .contact-link {
+            margin-top: 10px;
+            display: block;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .no-applications {
+            margin-top: 20px;
+            text-align: center;
+            color: #888;
+        }
+
+        .currentPage a{
+            background-color: #495057;
+        }
+        
+        .applied-job {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f1f1f1;
+}
+
+.top-left {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.profile-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.name-title {
+    flex-grow: 1;
+}
+
+.top-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
+
+.job-details {
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+}
+
+.job-description {
+    margin-bottom: 10px;
+}
+
+.status {
+    margin-bottom: 10px;
+}
+
+.application-deadline {
+    margin-bottom: 10px;
+}
+
+.actions {
+    margin-top: 10px;
+}
+
+.contact-link {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.contact-link:hover {
+    background-color: #0056b3;
+}
+
+.info-box{
+    display: flex;
+    justify-content: space-between;
+}
+
+    </style>
 </head>
 <body>
-
+    
 <section id="jobContainer">
     <aside id="asideNav">
-        <div><a href="jobs.php">Back To Jobs</a></div>
+        <div><a href="jobs.php">Back to Jobs</a></div>
         <div><a href="User_job_post.php">My Posts</a></div>
         <div><a href="PostJob.php">Post a Job</a></div>
-        <div><a href="PeopleApplied.php">People Who Applied to My Jobs</a></div>
-        <div>Jobs Applied To</div>
+        <div><a href="PeopleApplied.php">People Applied to My Jobs</a></div>
+        <div class="currentPage"><a>Jobs Applied To</a></div>
     </aside>
 
     <article id="JobApplied">
@@ -49,36 +204,48 @@ $resultJobAppliedTo = $conn->query($selectJobAppliedTo);
         if ($resultJobAppliedTo->num_rows > 0) {
             while ($rowJobAppliedTo = $resultJobAppliedTo->fetch_assoc()) {
                 ?>
-                <div>
-                    <div>
-                        <div>
-                            <img src="<?php echo $rowJobAppliedTo['ProfilePictureURL']; ?>" alt="Profile"
-                                 class="mr-3 rounded-circle">
-                            <div>
-                                <h5><?php echo $rowJobAppliedTo['Name']; ?></h5>
-                                <p><?php echo $rowJobAppliedTo['Title']; ?></p>
-                                <p>Status: <?php echo $rowJobAppliedTo['STATUS']; ?></p>
+                <div class="applied-job">
+                    <div class="info-box">
+                        <div class="top-left">
+                            <img src="<?php echo htmlspecialchars($rowJobAppliedTo['ProfilePictureURL']); ?>" alt="Profile" class="profile-image">
+                            <div class="name-title">
+                                <h5><?php echo htmlspecialchars($rowJobAppliedTo['Name']); ?></h5>
+                                <p><?php echo htmlspecialchars($rowJobAppliedTo['Title']); ?></p>
                             </div>
                         </div>
-
-                        <div>
-                            <p><?php echo $rowJobAppliedTo['PostedDate']; ?></p>
-                            <p><?php echo $rowJobAppliedTo['ApplicationDeadline']; ?></p>
-                            <p><?php echo $rowJobAppliedTo['Location']; ?></p>
+                        
+                        <div class="top-right">
+                            <div class="posted-date"><?php echo $rowJobAppliedTo['PostedDate']; ?> / <?php echo $rowJobAppliedTo['ApplicationDeadline']; ?></div>
+                            <div class="location"><?php echo htmlspecialchars($rowJobAppliedTo['Location']); ?></div>
+                        </div>
+                    </div>
+                    <div class="job-details">
+                        <div class="status">
+                            <p><Strong>Status:</Strong> <?php echo htmlspecialchars($rowJobAppliedTo['STATUS']); ?></p>
+                        </div>
+                        <div class="application-deadline">
+                            <p><Strong>Application Deadline:</Strong> <?php echo htmlspecialchars($rowJobAppliedTo['ApplicationDeadline']); ?></p>
                         </div>
                     </div>
 
-                    <div>
-                        <p><?php echo $rowJobAppliedTo['Description']; ?></p>
+                    <br>
+
+                    <div class="job-details">
+                        <div class="job-description">
+                            <p><?php echo htmlspecialchars($rowJobAppliedTo['Description']); ?></p>
+                        </div>
                     </div>
 
-                    <div>
-                        <a href="#">Contact</a>
+                    <div class="actions">
+                        <a href="#" class="contact-link">Contact</a>
                     </div>
                 </div>
-                <br><br><br>
+
+
                 <?php
             }
+        } else {
+            echo "<p class='no-applications'>You have not applied to any jobs.</p>";
         }
         ?>
     </article>

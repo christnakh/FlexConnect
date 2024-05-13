@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>Chat Application</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #f2f2f2; }
+        body { background-color: #f2f2f2; font-family: "Rubik",sans-serif;}
         .chat-container { margin-top: 20px; }
         .chat-list { height: 80vh; overflow-y: auto; background-color: #fff; border-right: 1px solid #ccc; }
         .chat-message { height: 80vh; overflow-y: auto; background-color: #fff; }
@@ -37,6 +38,7 @@
                 <div class="chat-box">
                     <input type="text" id="messageText" class="form-control" placeholder="Write a message...">
                     <button id="sendBtn" class="btn btn-success mt-2">Send</button>
+                    <a id="sendBtn" class="btn btn-alert mt-2" href="/">Back Home</a>
                 </div>
             </div>
         </div>

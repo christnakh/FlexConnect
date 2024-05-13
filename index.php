@@ -30,66 +30,302 @@ if (!$result) {
     <title>Home Page</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f8f9fa;
-            color: #343a40;
+    /* Existing styles */
+    body {
+        font-family: 'Rubik', sans-serif;
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+    .container {
+        padding-top: 20px;
+        margin-right: 280px;
+    }
+    .media {
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: #fff;
+    }
+    .media img {
+        width: 60px; 
+        height: 60px;
+        object-fit: cover;
+        border-radius: 50%; 
+        margin-right: 15px;
+    }
+    .media h5 {
+        margin-bottom: 10px;
+    }
+    .reaction-section {
+        margin-top: 15px;
+    }
+    .reaction {
+        margin-right: 10px;
+    }
+    .reaction-count {
+        font-size: 0.9em;
+        color: grey;
+    }
+    .comment-box {
+        margin-top: 20px;
+    }
+    .comment-input {
+        margin-bottom: 10px;
+    }
+    .comments-section p {
+        margin-bottom: 5px;
+    }
+    .edit-comment,
+    .delete-comment {
+        margin-right: 5px;
+    }
+    #editCommentModal {
+        color: #343a40;
+    }
+    #editCommentModal .modal-content {
+        border-radius: 10px;
+    }
+
+    .media .img-fluid {
+        width: 100%; 
+        border-radius: 0; 
+        margin-top: 10px; 
+        height:600px
+    }
+    .comment-box {
+        margin-top: 20px;
+    }
+    .comment-input {
+        width: 100%;
+        border: 1px solid #dee2e6;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    .post-comment {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
+    .post-comment:hover {
+        background: #0056b3;
+    }
+    .comments-section p {
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        margin-top: 10px;
+        line-height: 1.4;
+        font-size: 14px;
+        position: relative;
+    }
+    .comments-section strong {
+        color: #333;
+        font-weight: bold;
+    }
+    .edit-comment,
+    .delete-comment {
+        font-size: 12px;
+        padding: 3px 8px;
+        margin-left: 10px;
+        border-radius: 5px;
+        background: #dc3545;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
+    .edit-comment {
+        background: #4D84E2  ;
+    }
+    .edit-comment:hover,
+    .delete-comment:hover {
+        opacity: 0.85;
+    }
+    .edit-comment:focus,
+    .delete-comment:focus {
+        outline: none;
+    }
+    .reaction-section {
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+    }
+    .reaction {
+        border: none;
+        background: none;
+        color: inherit;
+        font-size: 16px;
+        padding: 5px 10px;
+        margin-right: 10px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
+    }
+    .reaction i {
+        margin-right: 5px;
+    }
+    .reaction.active {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+    }
+    .reaction:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    }
+    .reaction-count {
+        font-size: 0.9em;
+        color: grey;
+        margin-left: 5px;
+    }
+
+    .first-box {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+
+            position: fixed;
+            top: 5.5%; 
+            left: 5%; 
+            z-index: 1; 
         }
+
+        .back-profile {
+            position: relative;
+            text-align: center; 
+        }
+
+        .back-pro {
+            width: 100%;
+            border-radius: 8px; 
+            height:100px
+        }
+
+        .profile-img {
+            width: 80px; 
+            position: absolute;
+            top: 50px; 
+            left: 50%;
+            transform: translateX(-50%); 
+            background-color: whitesmoke;
+            border-radius: 50%;
+            padding: 5px;
+            z-index: 2;
+            height:80px
+        }
+
+        .first-box {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 90px;
+            padding: 10px;
+            width: 400px;
+            position: fixed;
+            top: 4.5%; 
+            right: 75%; 
+            height:450px;
+            
+        }
+        @media (max-width: 768px) {
         .container {
-            padding-top: 20px;
+            margin-right: 0; 
+            padding: 10px; 
         }
         .media {
-            border: 1px solid #dee2e6;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            background-color: #fff;
+            padding: 10px; 
         }
         .media img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-right: 15px;
+            width: 50px; 
+            height: 50px; 
         }
-        .media h5 {
-            margin-bottom: 10px;
+        .media .img-fluid {
+            height: auto; 
         }
-        .reaction-section {
-            margin-top: 15px;
+        .reaction, .post-comment {
+            padding: 5px 10px; 
+            font-size: 14px;
         }
-        .reaction {
-            margin-right: 10px;
+        .comment-input, .comments-section p {
+            font-size: 14px; 
         }
-        .reaction-count {
-            font-size: 0.9em;
-            color: grey;
+        .first-box {
+            position: static; 
+            width: 100%; 
+            margin-top: 20px; 
+            padding: 10px; 
+            box-shadow: none; 
+            border-radius: 0; 
         }
-        .comment-box {
-            margin-top: 20px;
+        .profile-img {
+            width: 60px; 
+            height: 60px; 
+            top: -30px; 
         }
-        .comment-input {
-            margin-bottom: 10px;
+        .back-profile img.back-pro {
+            height: 150px; 
         }
-        .comments-section p {
-            margin-bottom: 5px;
+        .skills_list {
+            display: block; 
         }
-        .edit-comment,
-        .delete-comment {
-            margin-right: 5px;
+        .skills_title {
+            display: block; 
         }
-        #editCommentModal {
-            color: #343a40;
-        }
-        #editCommentModal .modal-content {
-            border-radius: 10px;
-        }
-    </style>
+    }
+    
+</style>
+
 </head>
 <body>
+<?php
+$que = "SELECT *
+FROM Users";
+$resl = mysqli_query($conn, $que);
 
+if (!$resl) {
+die("Error fetching posts: " . mysqli_error($conn));
+}
+foreach ($resl as $User)?>
+<div class="first-box">
+    <div class="back-profile">
+        <img src="img/labne.jpg" alt="backgopurnd" class="back-pro">
+        <img src="<?php echo $User['ProfilePictureURL'];?>" alt="profile" class="profile-img">
+   </div>
+
+   <div class="about-me">
+    <div class="profile-name">
+        Welcome, <?php echo $User['Name'];?>!
+    </div>
+    <?php  echo $User['Summary'];?>
+   </div>
+
+   <br>
+   <?php
+$Skill = "SELECT s.*
+FROM Skills as s inner join Users as u on s.UserId = u.UserId";
+$res = mysqli_query($conn, $Skill);
+
+if (!$res) {
+die("Error fetching posts: " . mysqli_error($conn));
+}
+foreach ($res as $skill)?> 
+    <div class="skills_title">
+          Skills:
+    </div>
+        <ul class="skills_list">
+            <li> <?php echo '- '.  $skill ['SkillName'];?></li>
+        </ul>
+   
+   <p class="viewPro"><a href="pages/profile.php">View Profile</a></p>
+</div>
 <div class="container">
     <section>
         <?php foreach ($result as $postUser): ?>
@@ -98,7 +334,7 @@ if (!$result) {
                 <div class="media-body">
                     <h5><?php echo $postUser['Name']; ?></h5>
                     <p><?php echo $postUser['Content']; ?></p>
-                    <img src="<?php echo'/uploads/posts/'. $postUser['ImageURL']; ?>" alt='Image post' class="img-fluid">
+                    <img src="<?php echo'/uploads/posts/'. $postUser['ImageURL']; ?>" alt='Image post' class="img-fluid ">
                   <div class="reaction-section mt-2">
     <button class="reaction btn btn-outline-primary <?php echo ($postUser['user_reaction'] == 'like') ? 'active' : ''; ?>" data-post-id="<?php echo $postUser['PostID']; ?>" data-reaction="like">
         <i class="fas fa-thumbs-up"></i>
@@ -129,7 +365,6 @@ if (!$result) {
                                               WHERE c.PostID = $postID";
                             $commentsResult = mysqli_query($conn, $commentsQuery);
 
-                           // Inside the loop where you generate comments
                             while ($comment = mysqli_fetch_assoc($commentsResult)) {
                                 echo '<p><strong>' . $comment['Name'] . ':</strong> ' . $comment['CommentText'];
 
@@ -183,10 +418,10 @@ $(document).ready(function() {
         var button = $(this);
         var reaction = button.data('reaction');
         var post_id = button.data('post-id');
-        var user_id = <?php echo $userID; ?>;  // Make sure $userID is defined and accessible
+        var user_id = <?php echo $userID; ?>;  
 
         $.ajax({
-            url: '/pages/handle_post.php', // Correct path to your PHP script
+            url: '/pages/handle_post.php', 
             type: 'POST',
             data: { post_id: post_id, user_id: user_id, reaction: reaction },
             dataType: 'json',

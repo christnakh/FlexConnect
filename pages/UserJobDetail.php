@@ -1,47 +1,112 @@
-<?php
-include "../config/db.php";
-
-// Assuming the random_url is passed as a parameter in the URL
-$randomUrl = $_GET['url'];
-
-// Retrieve the UserID based on the random_url
-$selectUserId = "SELECT UserID FROM Users WHERE random_url = '$randomUrl'";
-$resultUserId = $conn->query($selectUserId);
-
-if ($resultUserId->num_rows > 0) {
-    $rowUserId = $resultUserId->fetch_assoc();
-    $userId = $rowUserId['UserID'];
-
-    // Retrieve skills for the user
-    $selectSkills = "SELECT * FROM Skills WHERE UserID = $userId";
-    $resultSkills = $conn->query($selectSkills);
-
-    // Retrieve education for the user
-    $selectEducation = "SELECT * FROM Education WHERE UserID = $userId";
-    $resultEducation = $conn->query($selectEducation);
-
-    // Display skills
-    if ($resultSkills->num_rows > 0) {
-        echo '<div><h3>Skills:</h3><ul>';
-        while ($rowSkills = $resultSkills->fetch_assoc()) {
-            echo '<li>' . $rowSkills['SkillName'] . '</li>';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        echo '</ul></div>';
-    } else {
-        echo '<div>No skills found for the user.</div>';
-    }
 
-    // Display education
-    if ($resultEducation->num_rows > 0) {
-        echo '<div><h3>Education:</h3><ul>';
-        while ($rowEducation = $resultEducation->fetch_assoc()) {
-            echo '<li>' . $rowEducation['Degree'] . ' in ' . $rowEducation['FieldOfStudy'] . ' from ' . $rowEducation['SchoolName'] . '</li>';
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
         }
-        echo '</ul></div>';
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h3 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+        }
+
+        .message {
+            font-style: italic;
+            color: #888;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Profile</h1>
+
+    <?php
+    include "../config/db.php";
+
+    // Assuming the random_url is passed as a parameter in the URL
+    $randomUrl = $_GET['url'];
+
+    // Retrieve the UserID based on the random_url
+    $selectUserId = "SELECT UserID FROM Users WHERE random_url = '$randomUrl'";
+    $resultUserId = $conn->query($selectUserId);
+
+    if ($resultUserId->num_rows > 0) {
+        $rowUserId = $resultUserId->fetch_assoc();
+        $userId = $rowUserId['UserID'];
+
+        // Retrieve skills for the user
+        $selectSkills = "SELECT * FROM Skills WHERE UserID = $userId";
+        $resultSkills = $conn->query($selectSkills);
+
+        // Display skills
+        if ($resultSkills->num_rows > 0) {
+            echo '<div class="section"><h3>Skills:</h3><ul>';
+            while ($rowSkills = $resultSkills->fetch_assoc()) {
+                echo '<li>' . htmlspecialchars($rowSkills['SkillName']) . '</li>';
+            }
+            echo '</ul></div>';
+        } else {
+            echo '<div class="section"><div class="message">No skills found for the user.</div></div>';
+        }
+
+        // Retrieve education for the user
+        $selectEducation = "SELECT * FROM Education WHERE UserID = $userId";
+        $resultEducation = $conn->query($selectEducation);
+
+        // Display education
+        if ($resultEducation->num_rows > 0) {
+            echo '<div class="section"><h3>Education:</h3><ul>';
+            while ($rowEducation = $resultEducation->fetch_assoc()) {
+                echo '<li>' . htmlspecialchars($rowEducation['Degree']) . ' in ' . htmlspecialchars($rowEducation['FieldOfStudy']) . ' from ' . htmlspecialchars($rowEducation['SchoolName']) . '</li>';
+            }
+            echo '</ul></div>';
+        } else {
+            echo '<div class="section"><div class="message">No education found for the user.</div></div>';
+        }
     } else {
-        echo '<div>No education found for the user.</div>';
+        echo '<div class="section"><div class="message">User not found.</div></div>';
     }
-} else {
-    echo 'User not found.';
-}
-?>
+    ?>
+
+    <a href="javascript:history.back()" class="back-button">Back</a>
+
+</body>
+</html>
