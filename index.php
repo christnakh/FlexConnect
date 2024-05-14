@@ -40,7 +40,7 @@ if (!$result) {
     }
     .container {
         padding-top: 20px;
-        margin-right: 280px;
+        margin-right: 20px;
     }
     .media {
         border: 1px solid #dee2e6;
@@ -304,7 +304,7 @@ foreach ($resl as $User)?>
     <div class="profile-name">
         Welcome, <?php echo $User['Name'];?>!
     </div>
-    <?php  echo $User['Summary'];?>
+
    </div>
 
    <br>
@@ -317,12 +317,7 @@ if (!$res) {
 die("Error fetching posts: " . mysqli_error($conn));
 }
 foreach ($res as $skill)?> 
-    <div class="skills_title">
-          Skills:
-    </div>
-        <ul class="skills_list">
-            <li> <?php echo '- '.  $skill ['SkillName'];?></li>
-        </ul>
+
    
    <p class="viewPro"><a href="pages/profile.php">View Profile</a></p>
 </div>

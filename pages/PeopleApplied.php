@@ -60,15 +60,15 @@ $resultJobPeopleApplied = $conn->query($selectJobPeopleApplied);
         }
 
         .main {
-            margin-left: 20px; /* Adjust margin for spacing between the sidebar and main content */
-            flex-grow: 1; /* Allow the main div to grow to fill available space */
+            width: 90%;
+            margin-left: 20px;
         }
 
         .job-post {
-            border-radius: 8px; /* Add border radius for rounded corners */
-            padding: 20px; /* Add padding for content spacing */
-            margin-bottom: 20px; /* Add margin between job posts */
-            background-color: #f1f1f1; /* Optional: Set background color */
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f1f1f1;
         }
 
         .job-info h5,
@@ -78,7 +78,7 @@ $resultJobPeopleApplied = $conn->query($selectJobPeopleApplied);
 
         .posted-date{
             color:#666;
-            margin-left:1100px
+            margin-left:1000px
         }
 
         .job-info p {
@@ -105,7 +105,22 @@ $resultJobPeopleApplied = $conn->query($selectJobPeopleApplied);
         h5{
             display:flex;
             flex-direction:row;
+        }
 
+        .BtnAcc{
+            border: none;
+            background-color: green;
+            border-radius: 7px;
+            padding: 10px;
+            color: white;
+        }
+
+        .BtnDec{
+            border: none;
+            background-color: red;
+            border-radius: 7px;
+            padding: 10px;
+            color: white;
         }
     </style>
 </head>
@@ -136,13 +151,13 @@ $resultJobPeopleApplied = $conn->query($selectJobPeopleApplied);
                 echo '<li><strong>Name:</strong> ' . $rowJobPeopleApplied['Name'] . '</li>';
                 echo '<li><strong>Status:</strong> ' . $rowJobPeopleApplied['STATUS'] . '</li>';
                 echo '<li><strong>More Details:</strong> <a href="UserJobDetail.php?url=' . $rowJobPeopleApplied['random_url'] . '">Details</a></li>';
-                echo '<li><button onclick="acceptApplication(\'' . $rowJobPeopleApplied['ApplyID'] . '\', \'' . $rowJobPeopleApplied['UserID'] . '\')">Accept</button>  ';
-                echo '<button onclick="declineApplication(\'' . $rowJobPeopleApplied['ApplyID'] . '\', \'' . $rowJobPeopleApplied['UserID'] . '\')">Decline</button></li>';   
+                echo '<li><button onclick="acceptApplication(\'' . $rowJobPeopleApplied['ApplyID'] . '\', \'' . $rowJobPeopleApplied['UserID'] . '\')" class="BtnAcc">Accept</button>  ';
+                echo '<button onclick="declineApplication(\'' . $rowJobPeopleApplied['ApplyID'] . '\', \'' . $rowJobPeopleApplied['UserID'] . '\')" class="BtnDec">Decline</button></li>';   
                 echo '</ul>';
                
-                echo '</div>'; // Close applicant-info div
-                echo '</div>'; // Close job-info div
-                echo '</div>'; // Close job-post div
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
             }
         }
         ?>

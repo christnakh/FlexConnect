@@ -39,7 +39,8 @@ if (isset($_POST['create_post'])) {
               VALUES ('$user_id', '$content', '$post_date', '$image_url')";
 
     if ($conn->query($query) === TRUE) {
-        echo "Post created successfully!";
+        header("Location: create_post.php");
+        exit();
     } else {
         echo "Error: " . $conn->error;
     }
@@ -101,11 +102,14 @@ $conn->close();
         button:hover {
             background-color: #2980b9;
         }
+        
     </style>
 </head>
 <body>
 
     <form method="post" action="" enctype="multipart/form-data">
+    <a href="profile.php" class="btn btn-secondary mb-3">Back to Profile</a>
+
         <div class="container mt-4">
             <h2>Create Post</h2>
             <label>Content: <textarea class="form-control" name="content" required></textarea></label>

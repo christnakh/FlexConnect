@@ -62,13 +62,14 @@ $resultJob = $conn -> query($selectJob);
 
 
         #MyJobs {
-            flex-grow: 1;
+            width: 90%;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
         }
 
         .job {
+            width: 100%;
             display: flex;
             padding: 20px;
             background-color: #f1f1f1;

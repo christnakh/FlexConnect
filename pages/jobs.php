@@ -49,6 +49,7 @@ $resultJob = $conn -> query($selectJob);
             background-color: #495057;
         }
         #Jobs {
+            width: 90%;
             flex-grow: 1;
             padding: 20px;
             background-color: #fff;
@@ -84,8 +85,39 @@ $resultJob = $conn -> query($selectJob);
             padding: 15px;
             background-color: #e9ecef;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Box shadow for job description */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            word-wrap: break-word;
         }
+
+        @media (max-width: 768px) {
+            #jobContainer {
+                flex-direction: column;
+            }
+            #asideNav {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            #Jobs {
+                width: 100%;
+            }
+            .job {
+                flex-direction: column;
+            }
+            .job img {
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .job-details h5 {
+                font-size: 16px;
+            }
+            .job-details .posted-date,
+            .job-details p {
+                font-size: 14px;
+            }
+        }
+
         .job .actions {
             margin-top: 10px;
         }

@@ -76,7 +76,7 @@ $conn->close();
     <title>Signup</title>
     <style>
         .container{
-            margin-top:50px;
+            margin-top:300px;
             padding:20px
         }
     </style>
@@ -149,7 +149,7 @@ $conn->close();
             </div>
         </div>
     </div>
-
+<br><br><br><br><br><br>
     <div
     class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
     

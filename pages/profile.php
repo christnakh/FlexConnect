@@ -72,10 +72,37 @@ if ($experienceResult->num_rows > 0) {
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <style>
-        /* Custom styles */
-        body{
-            font-family:'Rubik',sans-serif;
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin-top: 20px;
         }
+
+        .jumbotron {
+            background-color: #ffffff;
+            padding: 2rem 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .card {
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+        }
+
+        .card-body .img-fluid {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -85,17 +112,17 @@ if ($experienceResult->num_rows > 0) {
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 0, 0, 0.5);
             padding-top: 60px;
         }
 
         .modal-content {
-            background-color: #fefefe;
+            background-color: #fff;
             margin: 5% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
+            border-radius: 5px;
         }
 
         .close {
@@ -112,12 +139,26 @@ if ($experienceResult->num_rows > 0) {
             cursor: pointer;
         }
 
-        .card-body .img-fluid {
-            width: 100%;
-            height: auto;
-            border-radius: 0;
-            margin-top: 10px;
-            margin-bottom: 30px;
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        /* Enhancements for small devices */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+            }
         }
     </style>
 </head>
@@ -127,6 +168,9 @@ if ($experienceResult->num_rows > 0) {
         <div class="jumbotron mt-5">
             <h1 class="display-4">User Profile</h1>
             <hr class="my-4">
+            <?php if (!empty($user['ProfilePictureURL'])): ?>
+                <img src="<?php echo $user['ProfilePictureURL']; ?>" alt="Profile Picture" class="profile-img">
+            <?php endif; ?>
             <p class="lead">Name: <?php echo $user['Name']; ?></p>
             <p class="lead">Email: <?php echo $user['Email']; ?></p>
             <!-- Display other information from $skills, $posts, $experience, $endorsements arrays as needed -->
@@ -134,6 +178,7 @@ if ($experienceResult->num_rows > 0) {
             <p class="lead"><a href="edit_experience.php" class="btn btn-primary">Edit Experience</a></p>
             <p class="lead"><a href="edit_education.php" class="btn btn-primary">Edit Education</a></p>
             <p class="lead"><a href="edit_skills.php" class="btn btn-primary">Edit Skills</a></p>
+            <p class="lead"><a href="edit_profile.php" class="btn btn-primary">Edit Profile</a></p>
             <form action="logout.php" method="post">
                 <input type="submit" class="btn btn-danger" value="Logout">
             </form>

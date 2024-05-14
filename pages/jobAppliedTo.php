@@ -61,7 +61,7 @@ $resultJobAppliedTo = $conn->query($selectJobAppliedTo);
         }
 
         #JobApplied {
-            flex-grow: 1;
+            width: 90%;
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
@@ -114,77 +114,77 @@ $resultJobAppliedTo = $conn->query($selectJobAppliedTo);
         }
         
         .applied-job {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #f1f1f1;
-}
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f1f1f1;
+        }
 
-.top-left {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
+        .top-left {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
 
-.profile-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-right: 20px;
-}
+        .profile-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
 
-.name-title {
-    flex-grow: 1;
-}
+        .name-title {
+            flex-grow: 1;
+        }
 
-.top-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-bottom: 10px;
-}
+        .top-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-bottom: 10px;
+        }
 
-.job-details {
-    padding: 10px;
-    background-color: #e9ecef;
-    border-radius: 8px;
-}
+        .job-details {
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+        }
 
-.job-description {
-    margin-bottom: 10px;
-}
+        .job-description {
+            margin-bottom: 10px;
+        }
 
-.status {
-    margin-bottom: 10px;
-}
+        .status {
+            margin-bottom: 10px;
+        }
 
-.application-deadline {
-    margin-bottom: 10px;
-}
+        .application-deadline {
+            margin-bottom: 10px;
+        }
 
-.actions {
-    margin-top: 10px;
-}
+        .actions {
+            margin-top: 10px;
+        }
 
-.contact-link {
-    display: inline-block;
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-}
+        .contact-link {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
 
-.contact-link:hover {
-    background-color: #0056b3;
-}
+        .contact-link:hover {
+            background-color: #0056b3;
+        }
 
-.info-box{
-    display: flex;
-    justify-content: space-between;
-}
+        .info-box{
+            display: flex;
+            justify-content: space-between;
+        }
 
     </style>
 </head>
@@ -222,9 +222,6 @@ $resultJobAppliedTo = $conn->query($selectJobAppliedTo);
                     <div class="job-details">
                         <div class="status">
                             <p><Strong>Status:</Strong> <?php echo htmlspecialchars($rowJobAppliedTo['STATUS']); ?></p>
-                        </div>
-                        <div class="application-deadline">
-                            <p><Strong>Application Deadline:</Strong> <?php echo htmlspecialchars($rowJobAppliedTo['ApplicationDeadline']); ?></p>
                         </div>
                     </div>
 
