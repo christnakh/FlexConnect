@@ -9,22 +9,56 @@ if (!isset($_SESSION['user_id'])) {
 $userID = $_SESSION['user_id'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['UserID'])) {
-    $name = $_POST['Name'];
-    $email = $_POST['Email'];
-    $birth_date = $_POST['birth_date'];
-    $phone_number = $_POST['phone_number'];
-    $location = $_POST['Location'];
-    $industry = $_POST['Industry'];
-    $summary = $_POST['Summary'];
+    $fields = [];
+    $params = [];
+
+    if (!empty($_POST['Name'])) {
+        $fields[] = 'Name = ?';
+        $params[] = $_POST['Name'];
+    }
+
+    if (!empty($_POST['Email'])) {
+        $fields[] = 'Email = ?';
+        $params[] = $_POST['Email'];
+    }
+
+    if (!empty($_POST['birth_date'])) {
+        $fields[] = 'birth_date = ?';
+        $params[] = $_POST['birth_date'];
+    }
+
+    if (!empty($_POST['phone_number'])) {
+        $fields[] = 'phone_number = ?';
+        $params[] = $_POST['phone_number'];
+    }
+
+    if (!empty($_POST['Location'])) {
+        $fields[] = 'Location = ?';
+        $params[] = $_POST['Location'];
+    }
+
+    if (!empty($_POST['Industry'])) {
+        $fields[] = 'Industry = ?';
+        $params[] = $_POST['Industry'];
+    }
+
+    if (!empty($_POST['Summary'])) {
+        $fields[] = 'Summary = ?';
+        $params[] = $_POST['Summary'];
+    }
 
     $profileImagePath = getCurrentImagePath($conn, $userID);
     if (isset($_FILES['ProfileImage']) && $_FILES['ProfileImage']['error'] == 0) {
         $profileImagePath = uploadImage($userID);
+        $fields[] = 'ProfilePictureURL = ?';
+        $params[] = $profileImagePath;
     }
 
-    $query = $conn->prepare("UPDATE Users SET Name=?, Email=?, birth_date=?, phone_number=?, Location=?, Industry=?, Summary=?, ProfilePictureURL=? WHERE UserID=?");
-    $query->bind_param("ssssssssi", $name, $email, $birth_date, $phone_number, $location, $industry, $summary, $profileImagePath, $userID);
-    $result = $query->execute();
+    $params[] = $userID;
+    $query = "UPDATE Users SET " . implode(', ', $fields) . " WHERE UserID = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param(str_repeat('s', count($fields)) . 'i', ...$params);
+    $result = $stmt->execute();
 
     if ($result) {
         echo "<p>Profile updated successfully.</p>";
@@ -49,7 +83,7 @@ function uploadImage($userID) {
     $maxsize = 5 * 1024 * 1024;
     if ($filesize > $maxsize) die("Error: File size is larger than the allowed limit.");
 
-    $uploadDir = "../upload/users/";
+    $uploadDir = "../uploads/users/";
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }

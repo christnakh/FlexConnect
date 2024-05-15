@@ -9,7 +9,7 @@ if ($conn) {
         $userID = $_POST['user_id'];
         $commentText = $_POST['comment_text'];
 
-        // Fetch the user's name
+        
         $userNameQuery = $conn->prepare("SELECT Name FROM Users WHERE UserID = ?");
         $userNameQuery->bind_param("i", $userID);
         $userNameQuery->execute();
@@ -27,7 +27,7 @@ if ($conn) {
                 'message' => 'Comment added successfully.',
                 'data' => [
                     'commentID' => $newCommentID,
-                    'userName' => $userName, // Use the actual user name
+                    'userName' => $userName, 
                     'commentText' => $commentText
                 ]
             ];

@@ -6,7 +6,7 @@
     <title>Post Job</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* General styling */
+        
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
@@ -44,7 +44,7 @@
             background-color: #fff;
             border-radius: 8px;
         }
-        /* Form styling */
+        
         form {
             max-width: 600px;
             margin: 0 auto;

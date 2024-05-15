@@ -86,7 +86,7 @@ $resultJobPeopleApplied = $conn->query($selectJobPeopleApplied);
         }
 
         .applicant-info {
-            margin-top: 10px; /* Add margin between job info and applicant info */
+            margin-top: 10px; 
         }
 
         .applicant-info p {
@@ -94,10 +94,10 @@ $resultJobPeopleApplied = $conn->query($selectJobPeopleApplied);
         }
 
         .applicant-info img {
-            width: 50px; /* Set width for applicant profile image */
-            height: 50px; /* Set height for applicant profile image */
-            border-radius: 50%; /* Make the image circular */
-            margin-right: 10px; /* Add margin between image and text */
+            width: 50px; 
+            height: 50px; 
+            border-radius: 50%; 
+            margin-right: 10px; 
         }
         ul{
             list-style-type:none;

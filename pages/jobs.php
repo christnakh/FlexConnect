@@ -1,7 +1,6 @@
 <?php
 include "../config/db.php";
 
-// Get current date
 $currentDate = date("Y-m-d");
 
 $selectJob = "SELECT u.*, j.* FROM Users as u INNER JOIN Jobs as j on u.UserID = j.EmployerID WHERE EmployerID <> $_SESSION[user_id] AND j.PostedDate <= '$currentDate' AND j.ApplicationDeadline >= '$currentDate'";
@@ -126,7 +125,7 @@ $resultJob = $conn -> query($selectJob);
             color: #007bff;
             text-decoration: none;
         }
-        /* Custom styles for job details */
+
         .job-details p {
             margin-bottom: 10px;
             line-height: 1.5;
@@ -154,7 +153,7 @@ $resultJob = $conn -> query($selectJob);
         </aside>
         <article id="Jobs">
             <?php
-            // Your PHP code to fetch and display jobs
+
             if ($resultJob->num_rows > 0) {
                 while ($row = $resultJob->fetch_assoc()) {
                     ?>

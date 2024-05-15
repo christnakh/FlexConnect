@@ -33,7 +33,7 @@
 
         if ($user = $result->fetch_assoc()) {
             ?>
-            <form action="edit_profile_process.php" method="POST">
+            <form action="edit_profile_process.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="UserID" value="<?php echo htmlspecialchars($user['UserID']); ?>">
                 <div class="form-group">
                     <label>Name:</label>
@@ -69,6 +69,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Update Profile</button>
             </form>
+
             <?php
         } else {
             echo "<p>User not found.</p>";
@@ -93,9 +94,10 @@
         </div>
     </div>
 
+
     <script>
         var imageModal = document.getElementById("imageEditModal");
-        var span = document.getElementsByClassName("close")[1]; // Adjust this if it's not the second modal
+        var span = document.getElementsByClassName("close")[1];
 
         function openImageEditModal() {
             imageModal.style.display = "block";

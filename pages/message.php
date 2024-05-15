@@ -48,10 +48,8 @@
     $(document).ready(function() {
         var fetchInterval;
 
-        // Load all users initially
         loadUsers("");
 
-        // Search users
         $("#searchBtn").click(function() {
             var query = $("#searchQuery").val();
             loadUsers(query);
@@ -95,7 +93,7 @@
             }, function(response) {
                 $("#messages").append(`<div class='message-item me'><span class='message-sender'>Me</span><div class='message-text'>${messageText}</div></div>`);
                 $("#messageText").val("");
-                fetchMessages(); // Refresh messages after sending
+                fetchMessages(); 
             });
         });
 

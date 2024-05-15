@@ -17,7 +17,7 @@ $resultJob = $conn -> query($selectJob);
     <title>My Job Posts</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Set html and body height to 100% */
+        
         html, body {
             height: 100%;
             margin: 0;
@@ -28,8 +28,8 @@ $resultJob = $conn -> query($selectJob);
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
             padding: 20px;
-            display: flex; /* Use flexbox for layout */
-            flex-direction: column; /* Stack child elements vertically */
+            display: flex; 
+            flex-direction: column; 
         }
 
         #jobContainer {
@@ -117,7 +117,7 @@ $resultJob = $conn -> query($selectJob);
             text-decoration: none;
         }
 
-        /* Custom styles for job details */
+        
         .job-details p {
             margin-bottom: 10px;
             line-height: 1.5;
@@ -155,7 +155,6 @@ $resultJob = $conn -> query($selectJob);
 
     <article id="MyJobs">
         <?php
-        // Display job posts fetched from the database
         if ($resultJob->num_rows > 0) {
             while ($row = $resultJob->fetch_assoc()) {
                 ?>

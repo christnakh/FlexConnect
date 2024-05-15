@@ -17,7 +17,6 @@ $resultJobAppliedTo = $conn->query($selectJobAppliedTo);
     <title>Jobs Applied To</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Set html and body height to 100% */
         html, body {
             height: 100%;
             margin: 0;

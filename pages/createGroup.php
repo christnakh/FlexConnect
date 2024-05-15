@@ -13,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['UserID'])) {
 
     $group_id = $stmt->insert_id;
 
-    // Automatically add the creator as a member of the group
     if ($stmt->affected_rows > 0) {
         $stmt = $conn->prepare("INSERT INTO UserGroups (GroupID, UserID, Role, JoinedDate) VALUES (?, ?, 'Creator', CURDATE())");
         $stmt->bind_param("ii", $group_id, $creator_id);

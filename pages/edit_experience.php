@@ -80,7 +80,6 @@ $conn->close();
                     </div>
                 </div>
 
-                <!-- Remove Confirmation Modal -->
                 <div class="modal fade" id="removeModal<?php echo $experience['ExperienceID']; ?>" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">

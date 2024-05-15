@@ -61,10 +61,10 @@
     <?php
     include "../config/db.php";
 
-    // Assuming the random_url is passed as a parameter in the URL
+  
     $randomUrl = $_GET['url'];
 
-    // Retrieve the UserID based on the random_url
+  
     $selectUserId = "SELECT UserID FROM Users WHERE random_url = '$randomUrl'";
     $resultUserId = $conn->query($selectUserId);
 
@@ -72,11 +72,10 @@
         $rowUserId = $resultUserId->fetch_assoc();
         $userId = $rowUserId['UserID'];
 
-        // Retrieve skills for the user
+      
         $selectSkills = "SELECT * FROM Skills WHERE UserID = $userId";
         $resultSkills = $conn->query($selectSkills);
 
-        // Display skills
         if ($resultSkills->num_rows > 0) {
             echo '<div class="section"><h3>Skills:</h3><ul>';
             while ($rowSkills = $resultSkills->fetch_assoc()) {
@@ -87,11 +86,9 @@
             echo '<div class="section"><div class="message">No skills found for the user.</div></div>';
         }
 
-        // Retrieve education for the user
         $selectEducation = "SELECT * FROM Education WHERE UserID = $userId";
         $resultEducation = $conn->query($selectEducation);
 
-        // Display education
         if ($resultEducation->num_rows > 0) {
             echo '<div class="section"><h3>Education:</h3><ul>';
             while ($rowEducation = $resultEducation->fetch_assoc()) {

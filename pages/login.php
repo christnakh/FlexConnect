@@ -10,20 +10,18 @@ if (isset($_POST['login'])) {
     $login_input = $_POST['login_input'];
     $password = $_POST['password'];
 
-    // Simple SQL query without prepared statements (vulnerable to SQL injection)
     $sql = "SELECT * FROM Users WHERE Email='$login_input'";
     $result = $conn->query($sql);
 
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
 
-        // Simple password comparison (without hashing)
         if ($password === $row['Password']) {
-            // Password is correct
             session_start();
             $_SESSION['user_id'] = $row['UserID'];
             $_SESSION['email'] = $row['Email'];
             $_SESSION['full_name'] = $row['Name'];
+            $_SESSION['photo'] = $row['ProfilePictureURL'];
 
             echo "Login successful! Welcome, " . $row['Name'];
 

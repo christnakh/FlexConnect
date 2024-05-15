@@ -1,7 +1,7 @@
 <?php
-include "../config/db.php";  // Ensure this path is correct
+include "../config/db.php";  
 
-header('Content-Type: application/json'); // Send proper header for JSON content
+header('Content-Type: application/json'); 
 
 if ($conn) {
     if (isset($_POST['post_id'], $_POST['user_id'], $_POST['reaction'])) {
@@ -9,7 +9,7 @@ if ($conn) {
         $userID = $_POST['user_id'];
         $reaction = $_POST['reaction'];
 
-        // Check if the user has already reacted
+        
         $checkQuery = $conn->prepare("SELECT ReactionStatus FROM PostInteractions WHERE PostID = ? AND UserID = ?");
         $checkQuery->bind_param("ii", $postID, $userID);
         if (!$checkQuery->execute()) {
@@ -21,7 +21,7 @@ if ($conn) {
         if ($result->num_rows > 0) {
             $existingReaction = $result->fetch_assoc()['ReactionStatus'];
             if ($existingReaction === $reaction) {
-                // User clicked the same reaction again, remove it
+                
                 $deleteQuery = $conn->prepare("DELETE FROM PostInteractions WHERE PostID = ? AND UserID = ?");
                 $deleteQuery->bind_param("ii", $postID, $userID);
                 if (!$deleteQuery->execute()) {
@@ -29,7 +29,7 @@ if ($conn) {
                     exit();
                 }
             } else {
-                // Update the reaction
+                
                 $updateQuery = $conn->prepare("UPDATE PostInteractions SET ReactionStatus = ? WHERE PostID = ? AND UserID = ?");
                 $updateQuery->bind_param("sii", $reaction, $postID, $userID);
                 if (!$updateQuery->execute()) {
@@ -38,7 +38,7 @@ if ($conn) {
                 }
             }
         } else {
-            // Insert new reaction
+            
             $insertQuery = $conn->prepare("INSERT INTO PostInteractions (PostID, UserID, ReactionStatus) VALUES (?, ?, ?)");
             $insertQuery->bind_param("iis", $postID, $userID, $reaction);
             if (!$insertQuery->execute()) {
@@ -47,12 +47,12 @@ if ($conn) {
             }
         }
 
-        // Fetch updated counts
+        
         $countsQuery = $conn->prepare("SELECT 
             (SELECT COUNT(*) FROM PostInteractions WHERE PostID = ? AND ReactionStatus = 'like') as likes,
             (SELECT COUNT(*) FROM PostInteractions WHERE PostID = ? AND ReactionStatus = 'love') as loves,
             (SELECT COUNT(*) FROM PostInteractions WHERE PostID = ? AND ReactionStatus = 'dislike') as dislikes
-            FROM Dual");  // Use 'DUAL' for dummy table in single-row queries
+            FROM Dual");  
         $countsQuery->bind_param("iii", $postID, $postID, $postID);
         if (!$countsQuery->execute()) {
             echo json_encode(['error' => 'Error executing counts query: ' . $conn->error]);

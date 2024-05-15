@@ -2,13 +2,14 @@
 include "./config/db.php";
 include "./includes/header.php";
 
+
+
+$userID = $_SESSION['user_id'];
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: pages/login.php");
     exit();
 }
-
-$userID = $_SESSION['user_id'];
-
 $query = "SELECT u.*, p.*, 
           (SELECT COUNT(*) FROM PostInteractions WHERE PostID = p.PostID AND ReactionStatus = 'like') as likes,
           (SELECT COUNT(*) FROM PostInteractions WHERE PostID = p.PostID AND ReactionStatus = 'love') as loves,
@@ -20,7 +21,10 @@ $result = mysqli_query($conn, $query);
 if (!$result) {
     die("Error fetching posts: " . mysqli_error($conn));
 }
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +36,6 @@ if (!$result) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
     <style>
-    /* Existing styles */
     body {
         font-family: 'Rubik', sans-serif;
         background-color: #f8f9fa;
@@ -286,39 +289,30 @@ if (!$result) {
 </head>
 <body>
 <?php
-$que = "SELECT *
-FROM Users";
+$que = "SELECT * FROM Users WHERE UserID = $userID";
 $resl = mysqli_query($conn, $que);
 
-if (!$resl) {
-die("Error fetching posts: " . mysqli_error($conn));
+if ($resl && mysqli_num_rows($resl) > 0) {
+    $user = mysqli_fetch_assoc($resl);
+} else {
+    echo "User not found.";
+    exit();
 }
-foreach ($resl as $User)?>
+?>
 <div class="first-box">
     <div class="back-profile">
-        <img src="img/labne.jpg" alt="backgopurnd" class="back-pro">
-        <img src="<?php echo $User['ProfilePictureURL'];?>" alt="profile" class="profile-img">
+        <img src="img/baner.jpg" alt="backgopurnd" class="back-pro">
+        <img src="<?php echo htmlspecialchars($user['ProfilePictureURL']);?>" alt="profile" class="profile-img">
    </div>
 
    <div class="about-me">
     <div class="profile-name">
-        Welcome, <?php echo $User['Name'];?>!
+        Welcome, <?php echo htmlspecialchars($user['Name']);?>!
     </div>
 
    </div>
-
    <br>
-   <?php
-$Skill = "SELECT s.*
-FROM Skills as s inner join Users as u on s.UserId = u.UserId";
-$res = mysqli_query($conn, $Skill);
 
-if (!$res) {
-die("Error fetching posts: " . mysqli_error($conn));
-}
-foreach ($res as $skill)?> 
-
-   
    <p class="viewPro"><a href="pages/profile.php">View Profile</a></p>
 </div>
 <div class="container">
@@ -427,7 +421,6 @@ $(document).ready(function() {
                     reactionSection.find('.love-count').text(data.loves);
                     reactionSection.find('.dislike-count').text(data.dislikes);
 
-                    // Update active class
                     reactionSection.find('.reaction').removeClass('active');
                     button.addClass('active');
                 } else {
@@ -442,7 +435,6 @@ $(document).ready(function() {
 });
 
 
-// Call the handleReaction function on page load to set the active class for previous reactions
 $('.reaction.active').each(function() {
     var button = $(this);
     var reaction = button.data('reaction');
@@ -463,10 +455,8 @@ function handleReaction(button, reaction) {
             reactionSection.find('.love-count').text(data.loves);
             reactionSection.find('.dislike-count').text(data.dislikes);
 
-            // Remove 'active' class from all buttons in the current reaction section
             reactionSection.find('.reaction').removeClass('active');
 
-            // Add 'active' class to the clicked button
             button.addClass('active');
         },
         error: function() {
@@ -497,8 +487,8 @@ $('.post-comment').click(function() {
                 commentHTML += '<button class="btn btn-danger btn-sm delete-comment" data-comment-id="' + commentData.commentID + '">Delete</button></p>';
 
                 commentBox.siblings('.comments-section').append(commentHTML);
-                commentBox.val(''); // Clear the comment input box
-                   location.reload(); // Refresh the page
+                commentBox.val(''); 
+                   location.reload(); 
             } else {
                 alert(response.message);
             }
@@ -520,11 +510,11 @@ $('#updateCommentForm').submit(function(e) {
     var commentText = $('#updateCommentText').val();
 
     $.ajax({
-        url: './pages/update_comment.php', // URL to your PHP script for updating comments
+        url: './pages/update_comment.php', 
         type: 'post',
         data: { comment_id: commentID, comment_text: commentText, user_id: <?php echo $userID; ?> },
         success: function(responxse) {
-            location.reload(); // Refresh the page
+            location.reload(); 
         },
         error: function() {
             alert('Error occurred while updating comment.');
@@ -532,7 +522,6 @@ $('#updateCommentForm').submit(function(e) {
     });
 });
 
-// Delete comment functionality
 $(document).on('click', '.delete-comment', function() {
     var commentID = $(this).data('comment-id');
     $.ajax({
@@ -540,7 +529,7 @@ $(document).on('click', '.delete-comment', function() {
         type: 'post',
         data: { comment_id: commentID },
         success: function(response) {
-            location.reload(); // Refresh the page
+            location.reload(); 
         },
         error: function() {
             alert('Error occurred while deleting comment.');

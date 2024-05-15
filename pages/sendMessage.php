@@ -10,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
     $receiver_id = $_POST['receiver_id'];
     $message_text = $_POST['message_text'];
 
-    // Check input values before proceeding
     echo "Debug - Sender ID: $sender_id, Receiver ID: $receiver_id, Message Text: '$message_text'\n";
 
     if (empty($message_text)) {

@@ -25,8 +25,7 @@ $skillsResult = $conn->query($skillsSql);
 $selectSkills = "SELECT * FROM developerSkills";
 $resultSkills = $conn->query($selectSkills);
 
-// Update skills
-//$updateSelectSkills = "SELECT * FROM developerSkills";
+
 $updateResultSkills = $conn->query($selectSkills);
 
 $conn->close();
@@ -61,7 +60,6 @@ $conn->close();
                     </div>
                 </li>
 
-                <!-- Update Modal -->
                 <div class="modal fade" id="updateModal<?php echo $skill['SkillID']; ?>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -99,7 +97,6 @@ $conn->close();
                     </div>
                 </div>
 
-                <!-- Remove Confirmation Modal -->
                 <div class="modal fade" id="removeModal<?php echo $skill['SkillID']; ?>" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
