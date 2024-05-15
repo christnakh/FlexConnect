@@ -26,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keyword" content="">
     <meta name="description" content="">
-
+    <meta name="keywords" content="FlexConnect, job posting, job search, professional networking, career opportunities, employment, resume, CV, job board, career development, LinkedIn alternative, job portal, recruitment, hiring, professional connections, job seekers, employers, talent acquisition, career advice, job market, online job search, job applications, business networking, freelance jobs, full-time jobs, part-time jobs, internships, job alerts, professional profile, job listings">
     <script src="https://kit.fontawesome.com/3ff35f48ba.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="icon" type="png" href="/img/logo.png">
